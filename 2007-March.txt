@@ -1,0 +1,129 @@
+From raffi at hick.org  Mon Mar 12 01:44:57 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 11 Mar 2007 19:44:57 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 12 released!
+Message-ID: <Pine.LNX.4.58.0703111934300.26250@jethro.hick.org>
+
+Hello everyone,
+After a much needed hiatus, Sleep 2.1-b12 has been released.  This is a
+good release with lots of stuff in it, I think you'll like it.  :)
+
+1) Added the ability to include external files into the current script
+
+This feature should make it easier to modularize scripts.  This was a pain
+to implement as I had to make the compiled form of each script aware of
+which file it came from.
+
+2) String manipulation functions now normalize negative values
+
+That is a fancy way of saying you can now do left("some string", -2) to
+get all but the 2 left most characters in the specified string.  A little
+bit of work was done to allow string manipulation functions to accept
+negative chars.  In 2.1-b13 I'll work on applying this to array functions
+as well.
+
+3) Added byte buffers!
+
+Scripters can now allocate a memory buffer with the allocate function and
+manipulate it using Sleep's I/O functions.  This should help those of you
+who need to generate and manipulate large amounts of data quickly.
+
+4) Rewrote the interpreter and parser handling of parsed literals
+
+I spent the majority of my day/night rewriting how Sleep parses and later
+interprets parsed literals.  The code to do this before was incredibly
+ugly.  So ugly that when I kept encountering odd bugs I decided to just
+rewrite it and do it the right way.  So far I haven't noticed any
+surprises but your mileage may vary.  Please keep me informed if anything
+seemed to break in this area.
+
+There is a bunch of other stuff in this release as well.  However the
+above summarizes the highlights pretty well.
+
+As usual, the change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Beta 13 will be coming within a week or two.  My aim in b13 is to allow
+scripts to throw and catch exceptions, normalize negative values in array
+manipulation functions, and fix some more bugs.  Hopefully after b13 we
+will be feature complete for Sleep 2.1.  Once we reach that point I will
+direct my efforts towards finishing the new Sleep manual.
+
+As always, enjoy the beta!
+
+-- Raphael
+
+
+From raffi at hick.org  Sun Mar 18 17:38:01 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 18 Mar 2007 11:38:01 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 13 released!
+Message-ID: <Pine.LNX.4.58.0703181124440.5143@jethro.hick.org>
+
+Hello,
+As you can see from the subject Sleep 2.1-b13 has been released.  I met
+most of my goals for this beta but there is going to be at least a 2.1-b14
+before I'm done adding stuff for this development cycle.
+
+This release adds watch variables to Sleep's debugging arsenal.  Now
+variables can be placed into a watch list and any updates to the container
+referenced by that variable will be reported as a runtime warning (with
+script/line number information).
+
+This release also adds try/catch blocks as promised.  I opted to work
+towards a delicate compromise between backwards compatability and having a
+mechanism that works as expected.  The whatsnew.txt and the updated
+documentation provide insight into what is happening here.  I'm happy with
+how it turned out.  I think scripters requiring this will be as well.
+
+This release also includes bug fixes, an &exit function, and probably
+some other stuff.  Definitely check it out.
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+As always, enjoy the beta!
+
+-- Raphael
+
+
+From raffi at hick.org  Sat Mar 24 22:43:38 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sat, 24 Mar 2007 16:43:38 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 14 released!
+Message-ID: <Pine.LNX.4.58.0703241637590.19432@jethro.hick.org>
+
+Hi everyone,
+Finally, I believe we are feature complete for the 2.1 development cycle.
+Sleep 2.1-b14 has been released today.  This release closes the last of
+the features I was planning to add to Sleep 2.1.
+
+The changes are small.  A few bug fixes and normalized index parameters
+for array functions.
+
+In conjunction with this release of Sleep, I've also released an update to
+the Sleep-scriptable IRC client jIRCii.  jIRCii has a decent user base and
+community of scripters.  I expect to use feedback from this release to put
+any final polish on this Sleep release.
+
+In the mean time I will be focusing on documentation.  I'm currently
+working on the new Sleep 2.1 manual.  I expect we'll have the Sleep
+2.1-stable release in roughly 1 month.
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+As always, enjoy the beta!
+
+-- Raphael
+
+

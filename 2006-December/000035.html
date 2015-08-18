@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 11 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2011%20released%21&In-Reply-To=%3CPine.LNX.4.58.0612031701330.19103%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 11 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2011%20released%21&In-Reply-To=%3CPine.LNX.4.58.0612031701330.19103%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 11 released!">raffi at hick.org
+       </A><BR>
+    <I>Mon Dec  4 00:09:22 CET 2006</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+Sleep 2.1-b11 has been released.  This release is mainly bug fixes, I
+didn't get a chance to work on many new features (as the fixes took
+priority).
+
+There is one new feature worth noting.  Sleep now features a built-in
+profiler.  I'm working on a little web app at work and I wanted to
+optimize performance a little.  To enable this type of functionality use
+debug(8) to trace all function calls or debug(24) to enable profiling
+without printing out every function call.  Use the built-in profile()
+function to access the profiler statistics of the current script
+environment.  There are also APIs within the ScriptInstance class for
+accessing this information.
+
+Most of the fixed bugs are related to ensuring Sleep reports the correct
+line number when providing an error/warning message.  I did fix an issue
+in the coroutines implementation.  Hopefully it is stable now.
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+Beta 12 will contain some new features.  Notably the ability to include
+another script and install a closure as an exception handler.  I was
+aiming to have these things for this beta but bug fixes take precedence.
+
+As always, enjoy the beta!
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

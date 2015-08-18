@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1-b19
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1-b19&In-Reply-To=%3CPine.LNX.4.64.0710241944130.29615%40hillbilly%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1-b19</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1-b19&In-Reply-To=%3CPine.LNX.4.64.0710241944130.29615%40hillbilly%3E"
+       TITLE="[Sleep-developers] Sleep 2.1-b19">raffi at hick.org
+       </A><BR>
+    <I>Thu Oct 25 02:53:38 CEST 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everyone,
+Sleep 2.1-b19 has been released.  Here is a summary of the changes:
+
+- Added callcc to Sleep
+
+This was an extension of the current yield mechanism already in place. 
+callcc enables the current function to call another one with the paused 
+state (ala yield) of the current function passed to the next one as a 
+parameter.  Some think of this as a functional goto.
+
+- Added inline functions
+
+inline functions are the closest thing Sleep has to macros.  I added these 
+because some of the thing you may want to use callcc for could become 
+complicated.  inline functions are a natural way to hide such complex 
+things.
+
+For an example of how these two features work together check out:
+<A HREF="http://rsmudge.livejournal.com/9255.html">http://rsmudge.livejournal.com/9255.html</A>
+
+Other things?
+
+Socket functions can now be told what interface to bind to.  There was a 
+lot of code refactoring internally.  Also I added some more fault 
+tolerance type functionality within the interpreter.  For 
+example, functions clean up their stack frames properly in the event of failure
+
+As usual the beta is available at: <A HREF="http://sleep.hick.org/">http://sleep.hick.org/</A>
+
+Enjoy the beta.
+
+-- Raphael
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

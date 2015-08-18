@@ -1,0 +1,148 @@
+From rmudge at mailbox.syr.edu  Mon Oct  2 04:40:33 2006
+From: rmudge at mailbox.syr.edu (rmudge at mailbox.syr.edu)
+Date: Sun, 1 Oct 2006 22:40:33 -0400 (EDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 6 released!
+Message-ID: <Pine.SOL.4.51.0610012235210.26631@rodan.syr.edu>
+
+Hello,
+Sleep 2.1b6 has been released.  This release completes the feature set I
+was looking to add to Sleep 2.1.  My plan is to now focus on the new Sleep
+documentation and to solicit feedback via a jIRCii release in the next few
+weeks.  Once the documentation is complete (and maybe another beta or two,
+consisting mostly of fixes) Sleep 2.1 will be final.
+
+Highlights of Beta 6:
+- Lots of work on coroutines.  Coroutines can now call themselves
+  recursively and local variables are saved/restored as part of a
+  coroutine's state.
+- added setField(class/$object, "field", value) to set public/protected
+  members of a class/object.
+- added semaphores to the sleep language, this means forks can be
+  synchronized.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+As always Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Enjoy the beta!
+
+-- Raphael
+
+
+
+
+From raffi at hick.org  Mon Oct 16 03:00:45 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 15 Oct 2006 20:00:45 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 7 released!
+Message-ID: <Pine.LNX.4.58.0610151947240.8840@jethro.hick.org>
+
+Hello All,
+Sleep 2.1b7 has been released.  The main cool feature of this release is
+the ability to use the index operator on closures.  The index operator
+allows retrieving and setting values in the this scope for the indexed
+closure.
+
+Andreas and I played around with this feature and attempted to build
+something similar to ECMA script's prototype functions.  The test case
+for this is in the Sleep distribution under tests/sleepoo.sl.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+jIRCii-b40 was released last week as well.  This release of jIRCii
+features Sleep 2.1-b6.  There have been over 1000 downloads of the latest
+jIRCii beta so far (I know some software does much better... sue me :)).
+The good news is no one has come after me with a big stick due to their
+scripts being broken in the latest jIRCii beta.  This bodes well for
+backwards compatability.  Some jIRCii users have as many as 10 scripts
+loaded at any given time.  No news is definetly good news on this front.
+
+As for the Sleep 2.1 release schedule, here is the plan to date.  I plan
+to use the jIRCii community as Sleep beta testers.  While the jIRCii
+community jumps on the latest version of Sleep I am working on a rewrite
+of the Sleep documentation.  Once this documentation is somewhat usable
+i'll post it to the Sleep website to solicit feedback.  Once the
+complaints of the jIRCii community have been handled and the new manual is
+complete, then I'll release Sleep 2.1-stable and call this a completed
+development cycle.
+
+As always, please enjoy the beta.
+
+-- Raphael
+
+
+From raffi at hick.org  Mon Oct 30 04:03:05 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 29 Oct 2006 21:03:05 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1 beta 8 released!
+Message-ID: <Pine.LNX.4.58.0610292055360.25146@jethro.hick.org>
+
+Hello All,
+Sleep 2.1-b8 has been released.  This release contains a few feature
+enhancements and several bug fixes.
+
+Some of the items worth noting:
+
+- Functionality has been added to allow closures to share the "this" scope
+  amongst eachother.  This has been added to &invoke and &lambda.  The
+  main reason for all of this is to allow more experimentation with
+  creating scaffolding for javascript style prototype functions.  I think
+  we're there now.  Check out tests/sleepoo2.sl
+
+- Many scripters sometimes forget to place a semicolon at the end of
+  a statement assigning a closure to a scalar.  This of course creates
+  all kinds of problems.   I added a check for a corrupted assignment
+  stack that generates a runtime warning notifying the scripter of what
+  happened.
+
+- &exec was enhanced to allow specification of an environment and a
+  starting directory.
+
+There is other stuff as well. :)
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Time for me to crash.  Enjoy the beta.
+
+-- Raphael
+
+
+From raffi at hick.org  Tue Oct 31 04:57:42 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 30 Oct 2006 21:57:42 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1 Manual (alpha) posted
+Message-ID: <Pine.LNX.4.58.0610302152460.240@jethro.hick.org>
+
+Hello All,
+As a sort of experiment I am posting the Sleep 2.1 Manual in its current
+form to the Sleep homepage.
+
+The new manual is a total rewrite of the current documentation.  The goal
+is to provide a tutorial, a bridge writers guide, and a complete reference
+all in one document.
+
+Each page contains a feedback form that feeds right into the issue tracker
+in case you want to get involved and help submit feedback.  (go easy on me
+for a few weeks though... please :))
+
+The new manual is available at:
+
+http://sleep.hick.org/docs/manual/
+
+Please feel free to check back often as I will be keeping the posted
+documentation in sync with my local repository (thanks to a bunch of
+scripts to automate the process).
+
+-- Raphael
+
+

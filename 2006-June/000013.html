@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] inner classes in Sleep
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20inner%20classes%20in%20Sleep&In-Reply-To=%3CPine.LNX.4.58.0606010934180.12053%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] inner classes in Sleep</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20inner%20classes%20in%20Sleep&In-Reply-To=%3CPine.LNX.4.58.0606010934180.12053%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] inner classes in Sleep">raffi at hick.org
+       </A><BR>
+    <I>Thu Jun  1 19:42:02 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000012.html">[Sleep-developers] exit status of a command through sleep script
+</A></li>
+        <LI>Next message: <A HREF="000014.html">[Sleep-developers] hasmatch problem?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dani,
+I reworked your code a little bit and double checked what it would take to
+reference the constant you're looking for below:
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
+
+$props = [new Properties];
+$session = [Session getDefaultInstance : $props, $null];
+$m = [new MimeMessage: $session];
+[$m addRecipient: [Message$RecipientType TO],
+                  [new InternetAddress:&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">test at test.com</A>&quot;]];
+[$m setText: &quot;test&quot;];
+
+I don't know why the Java Mail API designer opted to define a bunch of
+static constants inside of a static inner class but the way you address a
+static inner class via Java reflection is using Classname$InnerClassname.
+The . character is used to specify a class within a certain package.
+Hopefully this helps.
+
+-- Raphael
+
+P.S. sorry about the slow reply, been kind of bogged down lately.
+
+On Tue, 30 May 2006, Dani Irinchev wrote:
+
+&gt;<i> Hi everyone,
+</I>&gt;<i> Trying to use sleep for some scripted logic and have some troubles
+</I>&gt;<i> referencing static resources on inner classes.
+</I>&gt;<i> Example (uses java mail):
+</I>&gt;<i>
+</I>&gt;<i> import javax.mail.*;
+</I>&gt;<i> import javax.mail.internet.*;
+</I>&gt;<i> import java.util.Properties;
+</I>&gt;<i> import javax.mail.Message.RecipientType;
+</I>&gt;<i>
+</I>&gt;<i> $props = [new Properties];
+</I>&gt;<i> $session = [ Session getDefaultInstance : $props, null ];
+</I>&gt;<i> $m = [ new MimeMessage: $session];
+</I>&gt;<i> [ $m addRecipient : [RecipientType TO];,[new InternetAddress:
+</I>&gt;<i> &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">test at test.com</A>&quot;];];
+</I>&gt;<i> [ $m setText : &quot;test&quot; ];
+</I>&gt;<i>
+</I>&gt;<i> The problem is that the expression:
+</I>&gt;<i>
+</I>&gt;<i> [RecipientType TO]
+</I>&gt;<i>
+</I>&gt;<i> Generates a runtime error that says:
+</I>&gt;<i>
+</I>&gt;<i> &quot;Attempted to call a method on a null reference.&quot;
+</I>&gt;<i>
+</I>&gt;<i> Any help will be welcome.
+</I>&gt;<i> Cheers, Dani
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/sleep-developers">http://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000012.html">[Sleep-developers] exit status of a command through sleep script
+</A></li>
+	<LI>Next message: <A HREF="000014.html">[Sleep-developers] hasmatch problem?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] updating a bean class in java through a sleep script
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20updating%20a%20bean%20class%20in%20java%20through%20a%0A%20sleep%20script&In-Reply-To=%3CPine.LNX.4.58.0706291423530.7668%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] updating a bean class in java through a sleep script</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20updating%20a%20bean%20class%20in%20java%20through%20a%0A%20sleep%20script&In-Reply-To=%3CPine.LNX.4.58.0706291423530.7668%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] updating a bean class in java through a sleep script">raffi at hick.org
+       </A><BR>
+    <I>Fri Jun 29 21:27:00 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Sleep-developers] updating a bean class in java through a sleep	script
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there.  This isn't too bad to do.  Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class.  The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: &quot;SHASHIDHAR MISRA&quot;];
+println(&quot;Name is: &quot; . [$person getName]);
+
+To update a public field use the setField function.  General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: <A HREF="http://sleep.hick.org/docs/manual/hoes.html">http://sleep.hick.org/docs/manual/hoes.html</A>
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   I am struck up at a point wherein I want to update a bean class through my sleep script.
+</I>&gt;<i>   First of all is it possible to update a bean class through a sleep script?
+</I>&gt;<i>
+</I>&gt;<i>   Supppose I have a java class Person.java
+</I>&gt;<i>
+</I>&gt;<i>   public class Person {
+</I>&gt;<i>       String name;
+</I>&gt;<i>       int age;
+</I>&gt;<i>
+</I>&gt;<i>       public String getName(){
+</I>&gt;<i>              return name;
+</I>&gt;<i>       }
+</I>&gt;<i>
+</I>&gt;<i>       public int getAge(){
+</I>&gt;<i>            return age;
+</I>&gt;<i>       }
+</I>&gt;<i>
+</I>&gt;<i>      public void setName(String name){
+</I>&gt;<i>             this.name = name;
+</I>&gt;<i>      }
+</I>&gt;<i>
+</I>&gt;<i>      public void setAge(int age){
+</I>&gt;<i>            this.age = age;
+</I>&gt;<i>      }
+</I>&gt;<i>
+</I>&gt;<i>   }
+</I>&gt;<i>
+</I>&gt;<i>   Now I have a sleep script through which I want to initialize a object of this class.
+</I>&gt;<i>   I am not sure how to go for this.
+</I>&gt;<i>   Please suggest.
+</I>&gt;<i>   Thanx in advance
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> We won't tell. Get more on shows you hate to love
+</I>&gt;<i> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Sleep-developers] updating a bean class in java through a sleep	script
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

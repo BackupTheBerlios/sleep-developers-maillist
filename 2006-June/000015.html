@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] hasmatch problem?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20hasmatch%20problem%3F&In-Reply-To=%3CPine.LNX.4.58.0606021726180.23115%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] hasmatch problem?</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20hasmatch%20problem%3F&In-Reply-To=%3CPine.LNX.4.58.0606021726180.23115%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] hasmatch problem?">raffi at hick.org
+       </A><BR>
+    <I>Sat Jun  3 00:37:36 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Sleep-developers] hasmatch problem?
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Sleep-developers] Sleep 2.1 beta 1 released
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>You get the prize, this is definetly a threading issue.  My own fault but
+something I can fix.  Basically when you use hasmatch it saves the
+regex results into an instance variable inside of the regex bridge.
+matched() then references this instance variable.  This was a failure to
+mantain that isolation of script environments that I've been mostly good
+about.  I'll file a bug on this and fix it in Sleep 2.1 (as soon as I
+either implement or give up on implementing coroutines a beta will be
+forth coming).
+
+I will also put a note about this implementation mistake into the sleep
+bridge developers guide, most of the time if I need to track an instance
+of something I do it in a script environment (this allows the bridge to be
+thread safe as only one block of code can be executing in any thread per
+script environment at any time thanks to internal synchronization built
+into sleep, this is why fork() spins off a new script environment hidden
+from the parent one).
+
+(:
+
+-- Raphael
+
+On Sat, 3 Jun 2006, Dani Irinchev wrote:
+
+&gt;<i> Hi guys,
+</I>&gt;<i>
+</I>&gt;<i> Trying to use regular expressions within a multithreaded environment like
+</I>&gt;<i> that:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> $my_th = {
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  $ctime = [java.lang.System currentTimeMillis];
+</I>&gt;<i>
+</I>&gt;<i>  $mystr = &quot;[&quot; . $ctime . &quot;] AAA BBBAAA AAA&quot;;
+</I>&gt;<i>
+</I>&gt;<i>  println(&quot;mystr = &quot; . $mystr);
+</I>&gt;<i>
+</I>&gt;<i>  if($mystr hasmatch '\[(\d+)\].+') {
+</I>&gt;<i>
+</I>&gt;<i>   println(&quot;M : &quot; . matched()[0]);
+</I>&gt;<i>
+</I>&gt;<i>  }
+</I>&gt;<i>
+</I>&gt;<i> };
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> while($ii &lt; 10) {
+</I>&gt;<i>
+</I>&gt;<i>  $ii = $ii + 1;
+</I>&gt;<i>
+</I>&gt;<i>  fork($my_th,$iter =&gt; &quot;$ii&quot;);
+</I>&gt;<i>
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> All lines should be matched in my opinion but I get only 5 or 6. Could it be
+</I>&gt;<i> a threading problem or maybe problem is totally somewhere else?
+</I>&gt;<i>
+</I>&gt;<i> Cheers, Dani
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Sleep-developers] hasmatch problem?
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Sleep-developers] Sleep 2.1 beta 1 released
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 17 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2017%20released%21&In-Reply-To=%3CPine.LNX.4.58.0706171557030.27919%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000045.html">
+   <LINK REL="Next"  HREF="000047.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 17 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2017%20released%21&In-Reply-To=%3CPine.LNX.4.58.0706171557030.27919%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 17 released!">raffi at hick.org
+       </A><BR>
+    <I>Sun Jun 17 23:05:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000045.html">[Sleep-developers] REMINDER CDJDN Meeting is this Wednesday 6/13/07 @6:00pm Please RSVP (fwd)
+</A></li>
+        <LI>Next message: <A HREF="000047.html">[Sleep-developers] sleep aware editor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#46">[ date ]</a>
+              <a href="thread.html#46">[ thread ]</a>
+              <a href="subject.html#46">[ subject ]</a>
+              <a href="author.html#46">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi everyone,
+Sleep 2.1-b17 has been released.  There are still a few very small items
+in my todo list but from here on out I'll try to focus mostly on the
+documentation.  The major changes in this release include:
+
+* Fixed several bugs with try/catch.  Silly bugs shouldn't have been there
+in the first place.  I highly recommend using debug(34) [throws all
+errors] in larger projects.  try/catch is great for keeping error handling
+under control
+
+* Added a literal form for Java classes i.e. ^String resolves to
+java.lang.String.class.  Also added an isa (think instanceof) predicate
+and updated several functions to use literal class values.  Functions like
+use can now accept a class literal or a String describing the class.
+You're much better off using the class literal form as it is checked and
+resolved at script compile time.  i.e.:
+
+import jdbc.JDBCBridge from: JDBC.jar;
+use(^JDBCBridge); # this is safe!
+
+* assertions now accept an (optional) message parameter i.e.:
+assert $x == 0 : &quot;hey, \$x is $x and not 0... it needs to be 0&quot;;
+
+* Eliminated unnecessary calls to Class.forName in the Sleep script
+parser.  Someone integrating Sleep into an applet project noticed that
+this was creating lots of weird traffic back to their webserver.  This
+problem has been fixed.
+
+There are some other changes as well but this list covers the most
+interesting ones.  Not bad for a single beta.  As always:
+
+The change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+Enjoy the beta, hopefully we'll have a release soon.
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000045.html">[Sleep-developers] REMINDER CDJDN Meeting is this Wednesday 6/13/07 @6:00pm Please RSVP (fwd)
+</A></li>
+	<LI>Next message: <A HREF="000047.html">[Sleep-developers] sleep aware editor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#46">[ date ]</a>
+              <a href="thread.html#46">[ thread ]</a>
+              <a href="subject.html#46">[ subject ]</a>
+              <a href="author.html#46">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

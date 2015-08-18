@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 4 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-September/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%204%20released%21&In-Reply-To=%3CPine.SOL.4.51.0609102311170.391%40rodan.syr.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 4 released!</H1>
+    <B>rmudge at mailbox.syr.edu</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%204%20released%21&In-Reply-To=%3CPine.SOL.4.51.0609102311170.391%40rodan.syr.edu%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 4 released!">rmudge at mailbox.syr.edu
+       </A><BR>
+    <I>Mon Sep 11 05:18:48 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000026.html">[Sleep-developers] Sleep 2.1 beta 5 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+Sleep 2.1b4 has been released.  It has been nearly 3 weeks and I feel
+enough has been accomplished to warrant a new beta release.
+
+Some of the exciting new things:
+
+1. import has been extended to allow classes to be loaded from 3rd party
+jars i.e.:
+
+debug(7);
+global('$builder $document $output');
+
+import org.jdom.*        from: jdom.jar;
+import org.jdom.input.*  from: jdom.jar;
+import org.jdom.output.* from: jdom.jar;
+
+$builder  = [new SAXBuilder];
+$document = [$builder build: &quot;begin.xml&quot;];
+
+$output   = [new XMLOutputter: [Format getPrettyFormat]];
+[$output output: $document, [System out]];
+
+The script snippet above uses the JDOM API to load an XML document and
+print it back out.  This inability to easily load 3rd party Jars not part
+of the current classpath was one of the motivations for starting work on
+Sleep 2.1.  I'm happy this feature is finally present.
+
+2. A new debug option: trace function calls!
+
+A new debug flag has been added to trace all function calls for a given
+script.  If the debug value on the script above is changed to 15, the
+trace output would look like:
+
+Trace: &amp;global('$builder $document $output') at line 2
+Trace: [new org.jdom.input.SAXBuilder] = <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">org.jdom.input.SAXBuilder at db484d</A> at line 8
+Trace: [<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">org.jdom.input.SAXBuilder at db484d</A> build: 'begin.xml'] = [Document: No DOCTYPE declaration, Root is [Element: &lt;environment/&gt;]] at line 9
+Trace: [org.jdom.output.Format getPrettyFormat] = <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">org.jdom.output.Format at cade31</A> at line 11
+Trace: [new org.jdom.output.XMLOutputter: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">org.jdom.output.Format at cade31</A>] = XMLOutputter[omitDeclaration = false, encoding = UTF-8, omitEncoding = false, indent = '  ', expandEmptyElements = false, lineSeparator = '\r\n', textMode = TRIM] at line 11
+Trace: [XMLOutputter[omitDeclaration = false, encoding = UTF-8, omitEncoding = false, indent = '  ', expandEmptyElements = false, lineSeparator = '\r\n', textMode = TRIM] output: [Document:  No DOCTYPE declaration, Root is [Element: &lt;environment/&gt;]], <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">java.io.PrintStream at bdc9b3</A>] at line 12
+
+3. New literal form for arrays and hashes
+
+This beta also includes a new more terse literal form for creating arrays
+and hashes i.e.:
+
+@array = @(&quot;a&quot;, &quot;b&quot;, @(&quot;c1&quot;, &quot;c2&quot;, &quot;c3&quot;), &quot;d&quot;, &quot;e&quot;);
+%hash  = %(a =&gt; &quot;alpha&quot;, b =&gt; &quot;bravo&quot;, c =&gt; &quot;charlie&quot;, d =&gt; &quot;delta&quot;);
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+As always Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+There are several other changes and fixes as well.  As usual enjoy the
+beta.
+
+-- Raphael
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000026.html">[Sleep-developers] Sleep 2.1 beta 5 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

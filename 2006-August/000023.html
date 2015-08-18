@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 2 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-August/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%202%20released%21&In-Reply-To=%3CPine.LNX.4.58.0608051933380.21039%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 2 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%202%20released%21&In-Reply-To=%3CPine.LNX.4.58.0608051933380.21039%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 2 released!">raffi at hick.org
+       </A><BR>
+    <I>Sun Aug  6 02:41:12 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000024.html">[Sleep-developers] Sleep 2.1 beta 3 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello All,
+Sleep 2.1b2 has been released.
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+As always Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+I've been sitting on this beta for about a month waiting to fix some I/O
+problems. This release features a number of additions, stuff I think you
+will like:
+
+- added several functional programming style functions like search,
+  reduce, and filter
+- added a nice debug option to fire a runtime warning every time a bridge
+  decides to flag an error (stuff that could be caught programatically
+  with checkError())
+- added some set type operations for @arrays like difference, union, and
+  intersection
+- added an assignment loop which is just an extended version of the whole
+  loop.  i.e.:
+
+  $handle = openf(&quot;somefile.txt&quot;);
+  while $text (readln($handle))
+  {
+     println(&quot;Read: $text&quot;);
+  }
+
+- added numerous other little functions and small API enhancements.
+
+Overall this is a big release with lots of fun changes.  Enjoy the beta.
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000024.html">[Sleep-developers] Sleep 2.1 beta 3 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

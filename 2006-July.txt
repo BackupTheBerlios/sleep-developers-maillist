@@ -1,0 +1,258 @@
+From dani at sferyx.com  Mon Jul  3 01:25:06 2006
+From: dani at sferyx.com (Dani Irinchev)
+Date: Mon, 3 Jul 2006 01:25:06 +0200
+Subject: [Sleep-developers] scalar parsing problem
+Message-ID: <004101c69e2e$c10e1e50$432a5af0$@com>
+
+Hi guys,
+
+The following code generates a parsing error:
+
+ 
+
+$a = "asd";
+
+$b = "fgh";
+
+println("$a;$b");
+
+ 
+
+saying:
+
+ 
+
+YourCodeSucksException: 1 error(s): Unknown expression at 3
+
+        at sleep.parser.Parser.parse(Unknown Source)
+
+        at sleep.parser.Parser.parse(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+ 
+
+Am I doing something wrong; I just want the two values separated by the ';'.
+
+Cheers, Dani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20060703/b8ccfb2f/attachment.html>
+
+From raffi at hick.org  Mon Jul  3 00:11:42 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 2 Jul 2006 17:11:42 -0500 (CDT)
+Subject: [Sleep-developers] scalar parsing problem
+In-Reply-To: <004101c69e2e$c10e1e50$432a5af0$@com>
+References: <004101c69e2e$c10e1e50$432a5af0$@com>
+Message-ID: <Pine.LNX.4.58.0607021710180.18341@jethro.hick.org>
+
+Hi Dani,
+Perl does some weird voodoo to replace variables inside of strings.
+Instead of weird voodoo I put the work on the scripter because I am a
+punk.  Inside of a string $+ does concatenation i.e.:
+
+> println("$a $+ ; $+ $b");
+
+The end result would be <value of $a>;<value of $b>
+
+Hope that helped.
+
+-- Raphael
+
+
+On Mon, 3 Jul 2006, Dani Irinchev wrote:
+
+> Hi guys,
+>
+> The following code generates a parsing error:
+>
+>
+>
+> $a = "asd";
+>
+> $b = "fgh";
+>
+> println("$a;$b");
+>
+>
+>
+> saying:
+>
+>
+>
+> YourCodeSucksException: 1 error(s): Unknown expression at 3
+>
+>         at sleep.parser.Parser.parse(Unknown Source)
+>
+>         at sleep.parser.Parser.parse(Unknown Source)
+>
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>
+>
+>
+> Am I doing something wrong; I just want the two values separated by the ';'.
+>
+> Cheers, Dani
+>
+>
+
+
+From dani at sferyx.com  Mon Jul  3 10:35:27 2006
+From: dani at sferyx.com (Dani Irinchev)
+Date: Mon, 3 Jul 2006 10:35:27 +0200
+Subject: [Sleep-developers] custom function question
+Message-ID: <002401c69e7b$a3565d30$ea031790$@com>
+
+Hi everyone,
+
+I am implementing some custom functions to export into a scripting
+environment. I would like to catch any problems that might occur in those
+functions of mine. Then I would like to report the problem so my
+RuntimeWarningWatcher gets a ScriptWarning.  Is there any way of knowing the
+script source line number where my function was executed?
+
+Cheers, Dani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20060703/2dfc7ce4/attachment.html>
+
+From raffi at hick.org  Mon Jul  3 14:58:48 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 3 Jul 2006 07:58:48 -0500 (CDT)
+Subject: [Sleep-developers] custom function question
+In-Reply-To: <002401c69e7b$a3565d30$ea031790$@com>
+References: <002401c69e7b$a3565d30$ea031790$@com>
+Message-ID: <Pine.LNX.4.58.0607030741440.26977@jethro.hick.org>
+
+Hi Dani,
+There are three options for communicating a error to a scripter.  Well
+really two right now, but three if you feel like checking out the code
+currently in the SVN repository.
+
+Option 1:
+Throw a RuntimeException or IllegalArgumentException.  These will bubble
+up to the script interpreter and get turned into a nicely formatted
+runtime exception.  Problem is they effectively cause a return on the
+calling script so this mechanism is only useful for serious errors.
+
+http://sleep.hick.org/sleepguide.html#2.95
+
+Option 2:
+Sleep has a built in function called checkError($error) that works a lot
+like Perl's $!.  Basically when a non-fatal type error occurs $! is set to
+a value describing the error.  In Sleep this $! value (not really $!)
+anymore is available by calling checkError($error).  If checkError returns
+1 then $error is set to the text of the error and the error is cleared.
+Otherwise checkError returns 0.
+
+http://sleep.hick.org/docs/api/sleep/runtime/ScriptEnvironment.html#flagError(java.lang.String)
+
+This may be the option you're looking for.  As for the line numbers,
+inside of the SVN repository (and part of Sleep 2.1 b2) there is a new
+option to set a "debug" level for scripts.  If the debug level is set
+properly any time an error is flagged in this way a runtime warning
+exception will be reported with the appropriate script file and line
+number.
+
+One thing you will need to do to set this debug level in 2.1 b2:
+
+ScriptInstance script; /* whare ever this comes from */
+
+script.setDebugFlags(script.getDebugFlags() | ScriptInstance.DEBUG_SHOW_WARNINGS);
+
+Option 3:
+Finally as the last option there is something similar to flagError in
+ScriptEnvironment sitting in the SVN that immediately fires a runtime
+warning exception with the current line number/file attached to the
+message you specify.   The function is showDebugMessage I believe.
+
+That should about cover it.
+
+-- Raphael
+
+
+On Mon, 3 Jul 2006, Dani Irinchev wrote:
+
+> Hi everyone,
+>
+> I am implementing some custom functions to export into a scripting
+> environment. I would like to catch any problems that might occur in those
+> functions of mine. Then I would like to report the problem so my
+> RuntimeWarningWatcher gets a ScriptWarning.  Is there any way of knowing the
+> script source line number where my function was executed?
+>
+> Cheers, Dani
+>
+>
+
+
+From shashidhar_gaurav at yahoo.com  Mon Jul  3 16:28:42 2006
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Mon, 3 Jul 2006 07:28:42 -0700 (PDT)
+Subject: [Sleep-developers] environment variable problem
+Message-ID: <20060703142842.54328.qmail@web56206.mail.re3.yahoo.com>
+
+Hi,
+  I am facing a problem.
+  For example I have a environment varible JBOSS_HOME = /usr/local/jboss.
+  In perl I can get the value of this variable in my script 
+  $variable = $ENV{JBOSS_HOME}
+   
+  Is there some way in sleep script  through which we can get the values of environment variables ?
+  Please advice 
+   
+
+ __________________________________________________
+Do You Yahoo!?
+Tired of spam?  Yahoo! Mail has the best spam protection around 
+http://mail.yahoo.com 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20060703/fa9041fb/attachment.html>
+
+From raffi at hick.org  Mon Jul  3 15:09:26 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 3 Jul 2006 08:09:26 -0500 (CDT)
+Subject: [Sleep-developers] environment variable problem
+In-Reply-To: <20060703142842.54328.qmail@web56206.mail.re3.yahoo.com>
+References: <20060703142842.54328.qmail@web56206.mail.re3.yahoo.com>
+Message-ID: <Pine.LNX.4.58.0607030807440.26977@jethro.hick.org>
+
+Java has a deprecated method for obtaining a variable from the
+environment.  Specifically System.getenv("var name").
+
+I haven't tested it but I assume the following would work:
+
+$variable = [System getenv: "JBOSS_HOME"];
+
+-- Raphael
+
+On Mon, 3 Jul 2006, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>   I am facing a problem.
+>   For example I have a environment varible JBOSS_HOME = /usr/local/jboss.
+>   In perl I can get the value of this variable in my script
+>   $variable = $ENV{JBOSS_HOME}
+>
+>   Is there some way in sleep script  through which we can get the values of environment variables ?
+>   Please advice
+>
+>
+>  __________________________________________________
+> Do You Yahoo!?
+> Tired of spam?  Yahoo! Mail has the best spam protection around
+> http://mail.yahoo.com
+
+

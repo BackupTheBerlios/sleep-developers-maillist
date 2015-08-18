@@ -1,0 +1,23 @@
+From raffi at jethro.hick.org  Sun Sep 23 22:38:36 2007
+From: raffi at jethro.hick.org (raffi at jethro.hick.org)
+Date: Sun, 23 Sep 2007 15:38:36 -0500 (CDT)
+Subject: [Sleep-developers] opinions/thoughts on moving mailing list
+Message-ID: <Pine.LNX.4.58.0709231536060.24713@jethro.hick.org>
+
+Hello everyone,
+berlios.de (which provides hosting of Sleep SVN among other things) seems
+to suffer from a lack of maintenance.  There is no response to support
+requests and the certificate for lists.berlios.de has been hosed for
+awhile now.  With this in mind I'm interested in moving the Sleep mailing
+list.
+
+1. Are there any suggestions for a good free mailing list host?
+
+2. Would there be any objections to a google group to take the place of a
+mailing list?
+
+Your thoughts are appreciated.
+
+-- Raphael
+
+

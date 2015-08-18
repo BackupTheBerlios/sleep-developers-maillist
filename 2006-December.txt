@@ -1,0 +1,39 @@
+From raffi at hick.org  Mon Dec  4 00:09:22 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 3 Dec 2006 17:09:22 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1 beta 11 released!
+Message-ID: <Pine.LNX.4.58.0612031701330.19103@jethro.hick.org>
+
+Hello,
+Sleep 2.1-b11 has been released.  This release is mainly bug fixes, I
+didn't get a chance to work on many new features (as the fixes took
+priority).
+
+There is one new feature worth noting.  Sleep now features a built-in
+profiler.  I'm working on a little web app at work and I wanted to
+optimize performance a little.  To enable this type of functionality use
+debug(8) to trace all function calls or debug(24) to enable profiling
+without printing out every function call.  Use the built-in profile()
+function to access the profiler statistics of the current script
+environment.  There are also APIs within the ScriptInstance class for
+accessing this information.
+
+Most of the fixed bugs are related to ensuring Sleep reports the correct
+line number when providing an error/warning message.  I did fix an issue
+in the coroutines implementation.  Hopefully it is stable now.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Beta 12 will contain some new features.  Notably the ability to include
+another script and install a closure as an exception handler.  I was
+aiming to have these things for this beta but bug fixes take precedence.
+
+As always, enjoy the beta!
+
+-- Raphael
+
+

@@ -1,0 +1,129 @@
+From Rainer.Hochschild at deutsche-boerse.com  Mon May 29 11:58:14 2006
+From: Rainer.Hochschild at deutsche-boerse.com (Rainer.Hochschild at deutsche-boerse.com)
+Date: Mon, 29 May 2006 11:58:14 +0200
+Subject: [Sleep-developers] SLEEP question
+Message-ID: <OF434909EA.7F1BEB31-ONC125717D.00345D05-C125717D.0036C534@deutsche-boerse.com>
+
+Dear All,
+
+I have developed a scripting solution for our in-house web-based problem
+tracking system and it was a big help in using SLEEP for that purpose. So
+far, my little scripting tool is purely text-based. Now I want to create a
+more fancy version that uses a GUI to select, load and execute scripts.
+When executing a script within the GUI, I want to present a scrollable
+window that contains all the script output which is created i.e. by
+println.
+The developer's guide does contain a short section about extending sleep
+I/O to introduce new I/O functions. However, it does not explain if I/O
+redirection is possible and how it is handled. In my example, I want to
+redirect all the script output that normally goes to STDOUT into the output
+window.
+As an example,
+
+
+-----------------------------------------
+Diese E-Mail enthaelt vertrauliche oder rechtlich geschuetzte
+Informationen.
+Wenn Sie nicht der beabsichtigte Empfaenger sind, informieren Sie
+bitte
+sofort den Absender und loeschen Sie diese E-Mail. Das unbefugte
+Kopieren
+dieser E-Mail oder die unbefugte Weitergabe der enthaltenen
+Informationen
+ist nicht gestattet.
+
+The information contained in this message is confidential or
+protected by
+law. If you are not the intended recipient, please contact the
+sender and
+delete this message. Any unauthorised copying of this message or 
+unauthorised distribution of the information contained herein is
+prohibited.
+
+
+
+From Rainer.Hochschild at deutsche-boerse.com  Mon May 29 12:06:55 2006
+From: Rainer.Hochschild at deutsche-boerse.com (Rainer.Hochschild at deutsche-boerse.com)
+Date: Mon, 29 May 2006 12:06:55 +0200
+Subject: [Sleep-developers] SLEEP question
+Message-ID: <OFD87C07A4.CEAB1736-ONC125717D.0036FCEC-C125717D.003790B5@deutsche-boerse.com>
+
+Dear All,
+
+I have developed a scripting solution for our in-house web-based problem
+tracking system and it was a big help in using SLEEP for that purpose. So
+far, my little scripting tool is purely text-based. Now I want to create a
+more fancy version that uses a GUI to select, load and execute scripts.
+When executing a script within the GUI, I want to present a scrollable
+window that contains all the script output which is created i.e. by
+println.
+The developer's guide does contain a short section about extending sleep
+I/O to introduce new I/O functions. However, it does not explain if I/O
+redirection is possible and how it is handled. In my example, I want to
+redirect all the script output that normally goes to STDOUT into the output
+window. Do I have to rewrite the BasicIO class? Is it possible (and
+necessary) to override the functions defined within BasicIO with my own
+bridge? Or is there a more elegant and simple way to accomplish this?
+
+Best Regards,
+Rainer Hochschild
+
+
+-----------------------------------------
+Diese E-Mail enthaelt vertrauliche oder rechtlich geschuetzte
+Informationen.
+Wenn Sie nicht der beabsichtigte Empfaenger sind, informieren Sie
+bitte
+sofort den Absender und loeschen Sie diese E-Mail. Das unbefugte
+Kopieren
+dieser E-Mail oder die unbefugte Weitergabe der enthaltenen
+Informationen
+ist nicht gestattet.
+
+The information contained in this message is confidential or
+protected by
+law. If you are not the intended recipient, please contact the
+sender and
+delete this message. Any unauthorised copying of this message or 
+unauthorised distribution of the information contained herein is
+prohibited.
+
+
+
+From dani at sferyx.com  Tue May 30 12:33:14 2006
+From: dani at sferyx.com (Dani Irinchev)
+Date: Tue, 30 May 2006 12:33:14 +0200
+Subject: [Sleep-developers] inner classes in Sleep
+Message-ID: <200605301033.k4UAX95L005146@smtp.hispeed.ch>
+
+Hi everyone,
+Trying to use sleep for some scripted logic and have some troubles
+referencing static resources on inner classes.
+Example (uses java mail):
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
+import javax.mail.Message.RecipientType;
+
+$props = [new Properties];
+$session = [ Session getDefaultInstance : $props, null ];
+$m = [ new MimeMessage: $session];
+[ $m addRecipient : [RecipientType TO];,[new InternetAddress:
+"test at test.com"];];
+[ $m setText : "test" ];
+
+The problem is that the expression:
+
+[RecipientType TO]
+
+Generates a runtime error that says:
+
+"Attempted to call a method on a null reference."
+
+Any help will be welcome.
+Cheers, Dani
+
+
+
+

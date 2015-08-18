@@ -1,0 +1,28 @@
+From andreas.ravnestad at gmail.com  Sat Aug  4 15:00:10 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Sat, 04 Aug 2007 15:00:10 +0200
+Subject: [Sleep-developers] Short article on using prepared statements with
+	JDBC
+Message-ID: <46B4785A.9090000@gmail.com>
+
+Here's a short article/howto I wrote today that demonstrates how to 
+create and execute prepared statements in Sleep using the JDBC bridge. I 
+appreciate comments and feedback, as well as suggestions for new articles :)
+
+Link: http://blog.printf.no/?p=25
+
+-Andreas
+
+
+From andreas.ravnestad at gmail.com  Mon Aug 13 03:55:52 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Mon, 13 Aug 2007 03:55:52 +0200
+Subject: [Sleep-developers] Article: using XML-RPC with Sleep
+Message-ID: <db3e39e10708121855m60817aaei790045e82d8862f5@mail.gmail.com>
+
+Here's a short article/howto showing how to use XML-RPC with Sleep:
+http://blog.printf.no/?p=26
+
+-Andreas
+
+

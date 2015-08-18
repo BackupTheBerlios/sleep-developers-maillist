@@ -1,0 +1,74 @@
+From raffi at hick.org  Sun Aug  6 02:41:12 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sat, 5 Aug 2006 19:41:12 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 2 released!
+In-Reply-To: <Pine.LNX.4.58.0606151955590.7011@jethro.hick.org>
+References: <Pine.LNX.4.58.0606151955590.7011@jethro.hick.org>
+Message-ID: <Pine.LNX.4.58.0608051933380.21039@jethro.hick.org>
+
+Hello All,
+Sleep 2.1b2 has been released.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+As always Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+I've been sitting on this beta for about a month waiting to fix some I/O
+problems. This release features a number of additions, stuff I think you
+will like:
+
+- added several functional programming style functions like search,
+  reduce, and filter
+- added a nice debug option to fire a runtime warning every time a bridge
+  decides to flag an error (stuff that could be caught programatically
+  with checkError())
+- added some set type operations for @arrays like difference, union, and
+  intersection
+- added an assignment loop which is just an extended version of the whole
+  loop.  i.e.:
+
+  $handle = openf("somefile.txt");
+  while $text (readln($handle))
+  {
+     println("Read: $text");
+  }
+
+- added numerous other little functions and small API enhancements.
+
+Overall this is a big release with lots of fun changes.  Enjoy the beta.
+
+-- Raphael
+
+
+From raffi at hick.org  Fri Aug 18 06:36:58 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Thu, 17 Aug 2006 23:36:58 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 3 released!
+Message-ID: <Pine.LNX.4.58.0608172335590.29333@jethro.hick.org>
+
+Hello All,
+Sleep 2.1b3 has been released.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+As always Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+I'm kind of tired so I am just going to paste the summary from the Sleep
+homepage here.  Hopefully no one minds.
+
+Added a 'strict' mode that warns scripters for failure to declare a
+variable. Fixed an issue with scripts servicing multiple clients through
+listening sockets. Updated several functions to accept an array or closure
+as an argument (when a closure is specified, the bridge will iterate over
+it until $null is returned). Added scripter access to setting and querying
+the current debug level. Several other small bug fixes and enhancements.
+
+Enjoy the beta.
+
+-- Raphael
+
+

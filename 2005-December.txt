@@ -1,0 +1,26 @@
+From raffi at hick.org  Sun Dec 11 22:34:25 2005
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 11 Dec 2005 15:34:25 -0600 (CST)
+Subject: [Sleep-developers] Sleep Issue Tracker Online
+Message-ID: <Pine.LNX.4.58.0512111530050.27757@jethro.hick.org>
+
+Hello,
+It has been quiet on the Sleep front lately.  Recently I had a hard
+drive crash that cost me my in progress Sleep 2.1 todo list.  Needless to
+say this has delayed start up work on Sleep 2.1.
+
+To get things back on their feet I've adopted the issue tracking system
+used by jIRCii onto the Sleep website.
+
+You can now post bug reports/feature requests, edit old reports, and
+comment on open reports.  the system has worked out well for jIRCii so
+far, hopefully it can do the same for the Sleep world.
+
+The URL to the system is:
+http://jircii.hick.org/cgi-bin/sleep/bitch.cgi/
+
+Feel free to check it out.
+
+			-- Raphael
+
+

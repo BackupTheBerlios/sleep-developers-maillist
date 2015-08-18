@@ -1,0 +1,57 @@
+From timgclark at gmail.com  Thu Jan 25 23:00:56 2007
+From: timgclark at gmail.com (Tim Clark)
+Date: Thu, 25 Jan 2007 22:00:56 +0000
+Subject: [Sleep-developers] Newbie question: termination of a script
+Message-ID: <b6077b530701251400x29aa083cl6e1facdb6d925ab9@mail.gmail.com>
+
+Hello
+Probably a stupid question but here goes.
+
+The documentation does not seem to describe an exit() builtin - that is, a
+statement that causes script.runScript() to return. I deduce (from
+experiment) that a return statement at the outer level has this effect (and
+presumably that is equivalent to falling off the end of the script).
+
+The question is: is there some way for the code within a subroutine (or
+closure) to invoke such an exit?
+
+The motivation for asking this is that I am trying to construct a script of
+this form:
+
+get a key;
+if key == exitKey then return 0;
+
+do something(1) based on key;
+
+get a key;
+if key == exitKey then return 0;
+
+do something(2) based on key;
+
+etc...
+
+and I'd like to wrap it like this (a sequence of steps):
+
+$key = getAKey();
+doSomething(1,$key);
+$key = getAKey();
+doSomething(2,$key);
+etc...
+
+where
+sub getAKey {
+  $key = readKey();
+  if($key == $exitKey)
+  {
+     exit();
+  }
+  return $key;
+}
+
+
+Regards
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070125/e11b756e/attachment.html>
+

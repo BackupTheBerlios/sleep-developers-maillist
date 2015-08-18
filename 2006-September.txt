@@ -1,0 +1,107 @@
+From rmudge at mailbox.syr.edu  Mon Sep 11 05:18:48 2006
+From: rmudge at mailbox.syr.edu (rmudge at mailbox.syr.edu)
+Date: Sun, 10 Sep 2006 23:18:48 -0400 (EDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 4 released!
+Message-ID: <Pine.SOL.4.51.0609102311170.391@rodan.syr.edu>
+
+Hello,
+Sleep 2.1b4 has been released.  It has been nearly 3 weeks and I feel
+enough has been accomplished to warrant a new beta release.
+
+Some of the exciting new things:
+
+1. import has been extended to allow classes to be loaded from 3rd party
+jars i.e.:
+
+debug(7);
+global('$builder $document $output');
+
+import org.jdom.*        from: jdom.jar;
+import org.jdom.input.*  from: jdom.jar;
+import org.jdom.output.* from: jdom.jar;
+
+$builder  = [new SAXBuilder];
+$document = [$builder build: "begin.xml"];
+
+$output   = [new XMLOutputter: [Format getPrettyFormat]];
+[$output output: $document, [System out]];
+
+The script snippet above uses the JDOM API to load an XML document and
+print it back out.  This inability to easily load 3rd party Jars not part
+of the current classpath was one of the motivations for starting work on
+Sleep 2.1.  I'm happy this feature is finally present.
+
+2. A new debug option: trace function calls!
+
+A new debug flag has been added to trace all function calls for a given
+script.  If the debug value on the script above is changed to 15, the
+trace output would look like:
+
+Trace: &global('$builder $document $output') at line 2
+Trace: [new org.jdom.input.SAXBuilder] = org.jdom.input.SAXBuilder at db484d at line 8
+Trace: [org.jdom.input.SAXBuilder at db484d build: 'begin.xml'] = [Document: No DOCTYPE declaration, Root is [Element: <environment/>]] at line 9
+Trace: [org.jdom.output.Format getPrettyFormat] = org.jdom.output.Format at cade31 at line 11
+Trace: [new org.jdom.output.XMLOutputter: org.jdom.output.Format at cade31] = XMLOutputter[omitDeclaration = false, encoding = UTF-8, omitEncoding = false, indent = '  ', expandEmptyElements = false, lineSeparator = '\r\n', textMode = TRIM] at line 11
+Trace: [XMLOutputter[omitDeclaration = false, encoding = UTF-8, omitEncoding = false, indent = '  ', expandEmptyElements = false, lineSeparator = '\r\n', textMode = TRIM] output: [Document:  No DOCTYPE declaration, Root is [Element: <environment/>]], java.io.PrintStream at bdc9b3] at line 12
+
+3. New literal form for arrays and hashes
+
+This beta also includes a new more terse literal form for creating arrays
+and hashes i.e.:
+
+@array = @("a", "b", @("c1", "c2", "c3"), "d", "e");
+%hash  = %(a => "alpha", b => "bravo", c => "charlie", d => "delta");
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+As always Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+There are several other changes and fixes as well.  As usual enjoy the
+beta.
+
+-- Raphael
+
+
+
+
+From rmudge at mailbox.syr.edu  Mon Sep 18 00:35:50 2006
+From: rmudge at mailbox.syr.edu (rmudge at mailbox.syr.edu)
+Date: Sun, 17 Sep 2006 18:35:50 -0400 (EDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 5 released!
+Message-ID: <Pine.SOL.4.51.0609171830220.12479@rodan.syr.edu>
+
+Hello,
+Sleep 2.1b5 has been released.  This release is more of a bug fix release
+with a few new features.
+
+New features are:
+- added functions to checksum and digest I/O handles or byte data.
+- rewrote the Sleep->Java method/constructor resolution.  results should
+  be a lot more accurate
+- added a casti function to cast a sleep scalar into various java
+  primitives (for the sake of passing to a Java method iff sleep's
+  automatic conversion is failing you somehow)
+- pack/unpack can now pack and unpack binary data to/from characters
+  representing their hex value with the new 'h/H' template character.
+
+- stdin/stdout console is now identified to scripts via the %console%
+  variable (installed into the script environment hashtable).  the console
+  is a sleep.bridges.io.IOObject set to System.in and System.out by
+  default.  the good news is now in your application integration you can
+  change this behavior if you so desire.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+As always Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Enjoy the beta!
+
+-- Raphael
+
+
+
+

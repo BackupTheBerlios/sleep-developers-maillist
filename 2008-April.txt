@@ -1,0 +1,27 @@
+From andreas.ravnestad at gmail.com  Wed Apr 23 12:12:43 2008
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Wed, 23 Apr 2008 12:12:43 +0200
+Subject: [Sleep-developers] Slumber 1.0-b1 released!
+Message-ID: <480F0B9B.2050204@gmail.com>
+
+Hi all,
+
+Hot on the heels of the new Sleep release, here's a brand new version of 
+Slumber that works with the latest Sleep beta. Get it here: 
+http://code.google.com/p/slumber/
+
+Changes include:
+ * Default sql data type is now java.sql.BINARY instead of 
+java.lang.Object, which should ensure better compatability across 
+various database systems
+ * Fixed a bug where row data was converted to strings
+ * Fixed a problem with the RowScalarHash, cloning did not work as intended
+ * Added more tests
+ * Updated the readme
+
+Detailed list of changes with diffs here: 
+http://code.google.com/p/slumber/source/list
+
+-Andreas
+
+

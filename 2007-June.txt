@@ -1,0 +1,367 @@
+From raffi at hick.org  Mon Jun 11 05:05:39 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 10 Jun 2007 22:05:39 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 16 released!
+Message-ID: <Pine.LNX.4.58.0706102201230.8718@jethro.hick.org>
+
+Hello,
+Sleep 2.1-b16 has been released.  I just wanted to show that I am still
+alive and working on the release.  :)  This release is mostly bug fixes.
+I did add a new debug mode for tracing all predicates which should help
+some of you.
+
+>> Welcome to the Sleep scripting language
+> interact
+>> Welcome to interactive mode.
+Type your code and then '.' on a line by itself to execute the code.
+Type Ctrl+D or 'done' on a line by itself to leave interactive mode.
+debug(64);
+$var = iff("5" eq 5, "yes", "no");
+.
+Trace: '5' eq 5 ? TRUE at eval:1
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Enjoy the beta.
+
+-- Raphael
+
+
+From raffi at hick.org  Mon Jun 11 20:56:02 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 11 Jun 2007 13:56:02 -0500 (CDT)
+Subject: [Sleep-developers] REMINDER CDJDN Meeting is this Wednesday 6/13/07
+ @6:00pm Please RSVP (fwd)
+Message-ID: <Pine.LNX.4.58.0706111352320.25660@jethro.hick.org>
+
+Hi All,
+In case anyone will be in the Albany, NY region this Wednesday, I'll be
+giving a short presentation on Sleep.   Respond to info at cdjdn.com to RSVP.
+
+-- Raphael
+
+
+   Next meeting is 6/13/2007 at 6:00pm at a NEW LOCATION - Brown's
+   Brewery in Troy - Directions [1][http://brownsbrewing.com/?pg=lc]
+
+   CDJDN has meet at this location in the past, when it was The Troy Pub
+   an Brewery, and we had our best turnouts ever. Food and drink will be
+   served.
+   Please RSVP at by responding to this email so we know how much food to
+   order.
+     _________________________________________________________________
+
+   This month's Presenters:
+
+     Raphael Mudge - Sleep- an open-source scripting option for Java.
+     This short presentation from the creator of Sleep demonstrates his
+     embeddable scripting solution for Java applications. Sleep is
+     heavily inspired by Perl with bits of Objective-C thrown in. The
+     Sleep Java API allows the language to be extended with new
+     constructs, operators, functions, and variable containers.
+
+   AND
+
+     Adam Myatt - Local Java Developer and Author has released a new
+     book
+
+     [2]Pro NetBeans IDE 5.5 Enterprise Edition
+     - Discuss some favorite features about NetBeans 5.5 that he covered
+     in the book
+     - Talk about cool NetBeans stuff discussed at JavaOne
+     - Talk about NetBeans 6 and the near future
+     - Book giveaway/raffle
+
+   We have many giveaways this month including a license of IntelliJ IDEA
+   will be raffled off at the meeting.
+
+     _________________________________________________________________
+
+   Our Mission :  The Java Developer's Network (JDN), located in the
+   Capital District of New York State, is a users' group dedicated to the
+   JAVA platform.
+
+   Through its members, the JDN provides a unique forum for developers of
+   all experience levels to engage in technology presentations,
+   cross-training improving Java Skill sets and social interaction.
+
+   The JDN accomplishes its mission through a member-built web site,
+   monthly meetings at entertaining locations, short seminars, and
+   contact with local & national software companies.
+     _________________________________________________________________
+
+   Capital Distinct Java Developer's Network is sponsored by:
+
+   [3]Genesys
+   [4]TEKsystems
+   [5]Blue Slate Solutions
+   [6]Troy Web Consulting
+
+          To sponsor the group please email us [7]info at cdjdn.com
+
+   To be removed from this email list please send us an email to
+   [8]remove at cdjdn.com and we will personally take you off the list
+   before the next email is sent out.
+
+References
+
+   1. http://brownsbrewing.com/?pg=lc
+   2. http://www.amazon.com/Pro-NetBeans-IDE-5-5-Enterprise/dp/1590597885/ref=sr_1_1/102-4374467-0858562?ie=UTF8&s=books&qid=1179883259&sr=1-1
+   3. http://www.genesysonline.com/
+   4. http://www.teksystems.com/
+   6. http://troywebconsulting.com/
+   7. info at cdjdn.com
+   8. mailto:remove at cdjdn.com?subject=Remove%20Me%20from%20cdjdn%20email%20list
+
+
+
+
+
+
+
+
+
+From raffi at hick.org  Sun Jun 17 23:05:08 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 17 Jun 2007 16:05:08 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 17 released!
+Message-ID: <Pine.LNX.4.58.0706171557030.27919@jethro.hick.org>
+
+Hi everyone,
+Sleep 2.1-b17 has been released.  There are still a few very small items
+in my todo list but from here on out I'll try to focus mostly on the
+documentation.  The major changes in this release include:
+
+* Fixed several bugs with try/catch.  Silly bugs shouldn't have been there
+in the first place.  I highly recommend using debug(34) [throws all
+errors] in larger projects.  try/catch is great for keeping error handling
+under control
+
+* Added a literal form for Java classes i.e. ^String resolves to
+java.lang.String.class.  Also added an isa (think instanceof) predicate
+and updated several functions to use literal class values.  Functions like
+use can now accept a class literal or a String describing the class.
+You're much better off using the class literal form as it is checked and
+resolved at script compile time.  i.e.:
+
+import jdbc.JDBCBridge from: JDBC.jar;
+use(^JDBCBridge); # this is safe!
+
+* assertions now accept an (optional) message parameter i.e.:
+assert $x == 0 : "hey, \$x is $x and not 0... it needs to be 0";
+
+* Eliminated unnecessary calls to Class.forName in the Sleep script
+parser.  Someone integrating Sleep into an applet project noticed that
+this was creating lots of weird traffic back to their webserver.  This
+problem has been fixed.
+
+There are some other changes as well but this list covers the most
+interesting ones.  Not bad for a single beta.  As always:
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Enjoy the beta, hopefully we'll have a release soon.
+
+-- Raphael
+
+
+From echeeng at yahoo.com  Fri Jun 22 20:46:01 2007
+From: echeeng at yahoo.com (Eric Ching)
+Date: Fri, 22 Jun 2007 11:46:01 -0700 (PDT)
+Subject: [Sleep-developers] sleep aware editor
+Message-ID: <494669.48948.qm@web62307.mail.re1.yahoo.com>
+
+Hi,
+
+I just started using sleep again after being away for a while and am wondering what sleep aware editors there are available.  Unless I am dreaming (ha!) I noticed vim had some syntax highlighting, but I'd like to use something like jedit or anything else, really.
+
+Why did I start using sleep again?  I need to do some scripting (put messages on MQSeries queues) on OS/400.  Jruby barfs with incompatibilities and is way to heavy for that system (its old).  sleep has great documentation, is small and fast, and importing java classes is a snap.  Maybe it is also with rhino but darn if I had to look high and low for any answer for 3rd party jars but never found anything.  Plus I still have a soft spot for perl =).
+
+Thanks,
+Eric
+
+ 
+---------------------------------
+The fish are biting.
+ Get more visitors on your site using Yahoo! Search Marketing.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070622/d9b67dfb/attachment.html>
+
+From raffi at hick.org  Sat Jun 23 02:59:14 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Fri, 22 Jun 2007 19:59:14 -0500 (CDT)
+Subject: [Sleep-developers] sleep aware editor
+In-Reply-To: <494669.48948.qm@web62307.mail.re1.yahoo.com>
+References: <494669.48948.qm@web62307.mail.re1.yahoo.com>
+Message-ID: <Pine.LNX.4.58.0706221956350.32411@jethro.hick.org>
+
+Hi Eric,
+Welcome back to Sleep.  There are no Sleep specific IDE options at this
+time.  If you're looking for basic syntax highlighting use the perl
+settings for your editor and you should be set.
+
+I heard the new netbeans makes it easier to add support for scripting
+languages but I haven't looked at it.  Since IDEs are not really my thing
+this is an open issue anyone is welcome to address.
+
+Any volunteers? :)
+
+-- Raphael
+
+On Fri, 22 Jun 2007, Eric Ching wrote:
+
+> Hi,
+>
+> I just started using sleep again after being away for a while and am wondering what sleep aware editors there are available.  Unless I am dreaming (ha!) I noticed vim had some syntax highlighting, but I'd like to use something like jedit or anything else, really.
+>
+> Why did I start using sleep again?  I need to do some scripting (put messages on MQSeries queues) on OS/400.  Jruby barfs with incompatibilities and is way to heavy for that system (its old).  sleep has great documentation, is small and fast, and importing java classes is a snap.  Maybe it is also with rhino but darn if I had to look high and low for any answer for 3rd party jars but never found anything.  Plus I still have a soft spot for perl =).
+>
+> Thanks,
+> Eric
+>
+>
+> ---------------------------------
+> The fish are biting.
+>  Get more visitors on your site using Yahoo! Search Marketing.
+
+
+From shashidhar_gaurav at yahoo.com  Fri Jun 29 06:26:44 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Thu, 28 Jun 2007 21:26:44 -0700 (PDT)
+Subject: [Sleep-developers] updating a bean class in java through a sleep
+	script
+Message-ID: <844580.41122.qm@web57702.mail.re3.yahoo.com>
+
+Hi,
+   
+  I am struck up at a point wherein I want to update a bean class through my sleep script.
+  First of all is it possible to update a bean class through a sleep script?
+   
+  Supppose I have a java class Person.java
+   
+  public class Person {
+      String name;
+      int age;
+   
+      public String getName(){
+             return name;
+      }
+   
+      public int getAge(){
+           return age;
+      }
+   
+     public void setName(String name){
+            this.name = name;
+     }
+   
+     public void setAge(int age){
+           this.age = age;
+     }
+   
+  }
+   
+  Now I have a sleep script through which I want to initialize a object of this class.
+  I am not sure how to go for this.
+  Please suggest.
+  Thanx in advance
+   
+
+ 
+---------------------------------
+We won't tell. Get more on shows you hate to love
+(and love to hate): Yahoo! TV's Guilty Pleasures list.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070628/030269fb/attachment.html>
+
+From raffi at hick.org  Fri Jun 29 21:27:00 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+Subject: [Sleep-developers] updating a bean class in java through a
+ sleep script
+In-Reply-To: <844580.41122.qm@web57702.mail.re3.yahoo.com>
+References: <844580.41122.qm@web57702.mail.re3.yahoo.com>
+Message-ID: <Pine.LNX.4.58.0706291423530.7668@jethro.hick.org>
+
+Hi there.  This isn't too bad to do.  Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class.  The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function.  General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+>   I am struck up at a point wherein I want to update a bean class through my sleep script.
+>   First of all is it possible to update a bean class through a sleep script?
+>
+>   Supppose I have a java class Person.java
+>
+>   public class Person {
+>       String name;
+>       int age;
+>
+>       public String getName(){
+>              return name;
+>       }
+>
+>       public int getAge(){
+>            return age;
+>       }
+>
+>      public void setName(String name){
+>             this.name = name;
+>      }
+>
+>      public void setAge(int age){
+>            this.age = age;
+>      }
+>
+>   }
+>
+>   Now I have a sleep script through which I want to initialize a object of this class.
+>   I am not sure how to go for this.
+>   Please suggest.
+>   Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+

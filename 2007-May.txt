@@ -1,0 +1,382 @@
+From raffi at hick.org  Mon May 21 05:18:28 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 20 May 2007 22:18:28 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 Status and Release Roadmap
+Message-ID: <Pine.LNX.4.58.0705202206220.29170@jethro.hick.org>
+
+Hi guys,
+I just wanted to take a minute and let everyone know what is happening
+with Sleep 2.1.
+
+I've been working hard on the new manual.  My goal is to have it replace
+the current sleep reference within the next beta or two.  I've basically
+told myself no coding until the new manual is able to stand as at least a
+completed rough draft.  You can check out the in progress docs at
+
+http://sleep.hick.org/docs/manual/
+
+I synchronize my local copy of the new docs with the server after each
+night of feverish work.  :)  Of course until this documentation is
+ready, I will continue to keep the current Sleep reference up to date.
+
+As I look at the issue tracker, I see enough work for about two more
+betas.  As soon as the docs are good enough (~2 weeks) I'll start work on
+the last two betas.
+
+Beta 17 will hopefully be the Sleep 2.1 release candidate.  Once b17 is
+ready I plan to do another jIRCii release, collect feedback from
+scripters and other non-jIRCii Sleep users, fix the raised issues, and
+release Sleep 2.1.
+
+My goal date for the release of Sleep 2.1-stable will be 20 Jul 07.  Two
+years from the release of Sleep 2.0-stable.
+
+In the meantime, I hope everyone is enjoying the betas.  If there are any
+questions or feedback feel free to hit me up via email.
+
+-- Raphael
+
+
+From shashidhar_gaurav at yahoo.com  Thu May 24 13:42:12 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Thu, 24 May 2007 04:42:12 -0700 (PDT)
+Subject: [Sleep-developers] passing a varaible to the exec comand
+In-Reply-To: <mailman.140.1164106885.32371.sleep-developers@lists.berlios.de>
+Message-ID: <481128.1041.qm@web57705.mail.re3.yahoo.com>
+
+Hi,
+   
+  I am struck up at a point wherein 
+  1.  I want to read an environemt variable in my sleep script.
+  2. Suppose I have read the evvironment variable somehow, I want to pass it to the exec command.
+   
+  for example
+   
+  $jbossPath = "/usr/local/jboss";
+  exec(" $jbossPath/tasks/test.sl");
+   
+   I am getting a error overhere something like this
+  java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+        at java.lang.String.substring(String.java:1444)
+        at sleep.parser.ParserUtilities.extract(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+        at sleep.parser.CodeGenerator.parseParameters(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.CodeGenerator.parse(Unknown Source)
+        at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+        at sleep.parser.Parser.parse(Unknown Source)
+        at sleep.parser.Parser.parse(Unknown Source)
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+        at sleep.console.TextConsole.main(Unknown Source)
+
+  
+Can anyone Please suggest as how should I go for it?
+  Thanx in advance
+sleep-developers-request at lists.berlios.de wrote:
+  Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Sleep 2.1 beta 10 released! (Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 20 Nov 2006 20:47:37 -0600 (CST)
+From: Raphael Mudge 
+Subject: [Sleep-developers] Sleep 2.1 beta 10 released!
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hola,
+Sleep 2.1-b10 has been released. This release contains a few feature
+enhancements and several bug fixes.
+
+Some of the items worth noting:
+
+- I/O functions that read and print characters are unicode aware once
+again. I originally made them non-unicode aware to ensure that mark,
+skip, and reset on a handle all worked no matter what op you were using.
+A little bit of hacking and now I have both. The function &setEncoding
+was added to allow specifying which charset to interpret print/read ops
+to the stream with.
+
+- Added \x and \u literals for specifying 8 and 16 bit characters within
+a parsed literal string.
+
+- Added assignment operators: +=, -=, *=, /=, etc..
+These also work with tuple assignment allowing some cool side effects,
+i.e. to add the elements of two arrays together:
+(@a) += @b;
+
+- Fixed &consume so the code to hash/checksum a file is now fast and
+simple :)
+
+There is other stuff as well. A parser bug was fixed that prevented out
+of context bareword tokens from being flagged as an error. One problem
+this caused was scripters typing null in lieu of $null never received an
+error.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+I'm planning one more beta with a few new features. The next beta may be
+a release candidate for Sleep 2.1. At the moment I am looking at my busy
+life and the daunting task of finishing the new Sleep manual in a
+reasonable amount of time. I may release without the new documentation.
+Not sure yet.
+
+Please enjoy the beta!
+
+-- Raphael
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 4, Issue 3
+**********************************************
+
+
+       
+---------------------------------
+Get the Yahoo! toolbar and be alerted to new email wherever you're surfing. 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070524/ccc7d542/attachment.html>
+
+From raffi at hick.org  Thu May 24 14:21:03 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Thu, 24 May 2007 07:21:03 -0500 (CDT)
+Subject: [Sleep-developers] passing a varaible to the exec comand
+In-Reply-To: <481128.1041.qm@web57705.mail.re3.yahoo.com>
+References: <481128.1041.qm@web57705.mail.re3.yahoo.com>
+Message-ID: <Pine.LNX.4.58.0705240709390.20322@jethro.hick.org>
+
+I would make sure you're not have an initial space in your exec command
+i.e.
+
+$handle = exec("$jbossPath $+ /tasks/test.sl"); # $+ is a concetenation op wi "strings"
+
+The reason behind the space thing is if you pass a string as the first
+parameter of exec, sleep will try to split it up into tokens using
+whitespace as the delimeter.  The first token will be the command, the
+second one the first argument, the third one the second argument, etc.  If
+you want your arguments/paths to contain spaces then you can pass an array
+as the first argument to exec() and it will use that as the source of the
+tokens.
+
+Usually it is also a good idea to assign the return value of exec to a
+$handle so you can wait($handle) or closef($handle) if you choose to do
+so later.  Not to mention you'd be able to read from it and things like
+that as well. Use wait($handle) to wait for the process to complete as
+exec is not a blocking call.
+
+As for getting ahold of current environment variables, Java has a
+deprecated method in the System class that may work for you...
+
+$var = [System getenv: "PATH"]; # get the $ENV{PATH} var
+
+seems to work for me...
+
+[raffi at beardsley ~]$ java -jar sleep.jar -x '[System getenv: "PATH"]'
+/sw/bin:/sw/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
+
+Now as for passing environment variables into exec.  This can be done as
+well.  The in-progress reference has some information on the exec()
+command:
+
+http://sleep.hick.org/docs/manual/exec.html
+
+i.e.:
+
+%env    = %(FOO => "value", BAR => "bleh", PATH => "$path $+ ; $+ c:\\blah");
+$handle = exec("$jbossPath $+ /tests/whatever.sl", %env);
+
+I think that about answers your questions.  Good luck!
+
+-- Raphael
+
+On Thu, 24 May 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+>   I am struck up at a point wherein
+>   1.  I want to read an environemt variable in my sleep script.
+>   2. Suppose I have read the evvironment variable somehow, I want to pass it to the exec command.
+>
+>   for example
+>
+>   $jbossPath = "/usr/local/jboss";
+>   exec(" $jbossPath/tasks/test.sl");
+>
+>    I am getting a error overhere something like this
+>   java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+>         at java.lang.String.substring(String.java:1444)
+>         at sleep.parser.ParserUtilities.extract(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseParameters(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+>         at sleep.parser.Parser.parse(Unknown Source)
+>         at sleep.parser.Parser.parse(Unknown Source)
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+>         at sleep.console.TextConsole.main(Unknown Source)
+>
+>
+> Can anyone Please suggest as how should I go for it?
+>   Thanx in advance
+> sleep-developers-request at lists.berlios.de wrote:
+>   Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Sleep 2.1 beta 10 released! (Raphael Mudge)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 20 Nov 2006 20:47:37 -0600 (CST)
+> From: Raphael Mudge
+> Subject: [Sleep-developers] Sleep 2.1 beta 10 released!
+> To: sleep-developers at lists.berlios.de
+> Message-ID:
+>
+> Content-Type: TEXT/PLAIN; charset=US-ASCII
+>
+> Hola,
+> Sleep 2.1-b10 has been released. This release contains a few feature
+> enhancements and several bug fixes.
+>
+> Some of the items worth noting:
+>
+> - I/O functions that read and print characters are unicode aware once
+> again. I originally made them non-unicode aware to ensure that mark,
+> skip, and reset on a handle all worked no matter what op you were using.
+> A little bit of hacking and now I have both. The function &setEncoding
+> was added to allow specifying which charset to interpret print/read ops
+> to the stream with.
+>
+> - Added \x and \u literals for specifying 8 and 16 bit characters within
+> a parsed literal string.
+>
+> - Added assignment operators: +=, -=, *=, /=, etc..
+> These also work with tuple assignment allowing some cool side effects,
+> i.e. to add the elements of two arrays together:
+> (@a) += @b;
+>
+> - Fixed &consume so the code to hash/checksum a file is now fast and
+> simple :)
+>
+> There is other stuff as well. A parser bug was fixed that prevented out
+> of context bareword tokens from being flagged as an error. One problem
+> this caused was scripters typing null in lieu of $null never received an
+> error.
+>
+> Change log is available here:
+> http://sleep.hick.org/changelog.html
+>
+> Sleep can be downloaded at:
+> http://sleep.hick.org/download.html
+>
+> I'm planning one more beta with a few new features. The next beta may be
+> a release candidate for Sleep 2.1. At the moment I am looking at my busy
+> life and the daunting task of finishing the new Sleep manual in a
+> reasonable amount of time. I may release without the new documentation.
+> Not sure yet.
+>
+> Please enjoy the beta!
+>
+> -- Raphael
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 4, Issue 3
+> **********************************************
+>
+>
+>
+> ---------------------------------
+> Get the Yahoo! toolbar and be alerted to new email wherever you're surfing.
+
+

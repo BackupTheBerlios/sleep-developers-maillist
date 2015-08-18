@@ -1,0 +1,42 @@
+From raffi at hick.org  Tue Jul 19 05:49:58 2005
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 18 Jul 2005 22:49:58 -0500 (CDT)
+Subject: [Sleep-developers] test... :) sorry for the spam
+Message-ID: <Pine.LNX.4.58.0507182249340.13811@jethro.hick.org>
+
+Hello,
+This is just a test message to see if the mailing list has become
+unbroken...
+
+
+From raffi at hick.org  Wed Jul 20 14:01:53 2005
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 20 Jul 2005 07:01:53 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.0 Released
+Message-ID: <Pine.LNX.4.58.0507190608500.10881@jethro.hick.org>
+
+Hello All,
+Sleep 2.0 has offically been released.  This release is the culmination of
+5 months of hardcore code hacking.   Sleep's old design goals consisted of
+creating a language that was easily extensible and embedable into an
+application.  Once these goals were accomplished Sleep 2.0 was conceived.
+Sleep 2.0 took the simple Sleep language and brought it forward into a
+powerful and full featured general purpose scripting language.
+
+Major features in Sleep 2.0:
+- Added the ability to create, access, and manipulate Java objects
+  with the HOES subsystem.
+- Added support for extracting and manipulating binary data.
+- Added multidimensional data structures to the Sleep language.
+- Added closures to the Sleep language.
+
+Sleep 2.0 can be downloaded at: http://sleep.hick.org/
+
+The release should be pretty stable.  I released a jIRCii beta with the
+latest SVN dump 2 days ago.  No one has complained yet :)
+
+Enjoy the release.
+
+			-- Raphael
+
+

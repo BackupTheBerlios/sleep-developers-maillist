@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] can Sleep thread be paused/resumed?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20can%20Sleep%20thread%20be%20paused/resumed%3F&In-Reply-To=%3CPine.LNX.4.58.0611160022250.22133%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000034.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] can Sleep thread be paused/resumed?</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20can%20Sleep%20thread%20be%20paused/resumed%3F&In-Reply-To=%3CPine.LNX.4.58.0611160022250.22133%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] can Sleep thread be paused/resumed?">raffi at hick.org
+       </A><BR>
+    <I>Thu Nov 16 07:26:29 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+        <LI>Next message: <A HREF="000034.html">[Sleep-developers] Sleep 2.1 beta 10 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Maurice,
+Sleep does not provide an API to do this per se, however if you run a
+script in its own java.lang.Thread you can use the stop, resume, and pause
+methods there (I assume).  I should warn you though that these methods are
+deprecated as they are prone to cause deadlock.
+
+Scripts can also voluntarily relinquish control using the yield statement
+(works like return).  When yield is called within a function, the state of
+the function is saved, and the yielded value is returned.  The next time
+the function is called execution resumes from where yield was last called.
+
+Can you provide any more information about what your application is doing
+and what the need is for the halt, pause, and resume of threads?  Maybe
+there is another way to go about this.
+
+-- Raphael
+
+On Wed, 15 Nov 2006, Maurice Manning wrote:
+
+&gt;<i>
+</I>&gt;<i> My app will receive a script (in Sleep possibly) from a client which
+</I>&gt;<i> will contain instructions to control hardware. The script will need to
+</I>&gt;<i> call methods on Java classes that are the API for the hardware (seems
+</I>&gt;<i> like Sleep can do this) but my Manager class (in java) will need to be
+</I>&gt;<i> able to halt, pause and resume the thread that is executing the Sleep
+</I>&gt;<i> script. Is this possible? Can I get an example of the above? Jython
+</I>&gt;<i> failed this test so I am looking for other options.
+</I>&gt;<i>
+</I>&gt;<i> Thanks for any info, Mo
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+	<LI>Next message: <A HREF="000034.html">[Sleep-developers] Sleep 2.1 beta 10 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

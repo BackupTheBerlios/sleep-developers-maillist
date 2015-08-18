@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 5 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-September/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%205%20released%21&In-Reply-To=%3CPine.SOL.4.51.0609171830220.12479%40rodan.syr.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 5 released!</H1>
+    <B>rmudge at mailbox.syr.edu</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%205%20released%21&In-Reply-To=%3CPine.SOL.4.51.0609171830220.12479%40rodan.syr.edu%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 5 released!">rmudge at mailbox.syr.edu
+       </A><BR>
+    <I>Mon Sep 18 00:35:50 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[Sleep-developers] Sleep 2.1 beta 4 released!
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+Sleep 2.1b5 has been released.  This release is more of a bug fix release
+with a few new features.
+
+New features are:
+- added functions to checksum and digest I/O handles or byte data.
+- rewrote the Sleep-&gt;Java method/constructor resolution.  results should
+  be a lot more accurate
+- added a casti function to cast a sleep scalar into various java
+  primitives (for the sake of passing to a Java method iff sleep's
+  automatic conversion is failing you somehow)
+- pack/unpack can now pack and unpack binary data to/from characters
+  representing their hex value with the new 'h/H' template character.
+
+- stdin/stdout console is now identified to scripts via the %console%
+  variable (installed into the script environment hashtable).  the console
+  is a sleep.bridges.io.IOObject set to System.in and System.out by
+  default.  the good news is now in your application integration you can
+  change this behavior if you so desire.
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+As always Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+Enjoy the beta!
+
+-- Raphael
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[Sleep-developers] Sleep 2.1 beta 4 released!
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

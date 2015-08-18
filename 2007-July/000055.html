@@ -1,0 +1,639 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] setting the system property sleep.classpath from the java code
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20setting%20the%20system%20property%20sleep.classpath%0A%20from%20the%20java%20code&In-Reply-To=%3CPine.LNX.4.58.0707040944560.10127%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000054.html">
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] setting the system property sleep.classpath from the java code</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20setting%20the%20system%20property%20sleep.classpath%0A%20from%20the%20java%20code&In-Reply-To=%3CPine.LNX.4.58.0707040944560.10127%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] setting the system property sleep.classpath from the java code">raffi at hick.org
+       </A><BR>
+    <I>Wed Jul  4 16:55:50 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000054.html">[Sleep-developers] setting the system property sleep.classpath from	the java code
+</A></li>
+        <LI>Next message: <A HREF="000056.html">[Sleep-developers] Sleep 2.1 beta 18 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Shashidhar,
+There is a static Java method to set and query the Sleep classpath value
+in sleep.parser.ParserConfig.
+
+<A HREF="http://sleep.hick.org/docs/api/sleep/parser/ParserConfig.html">http://sleep.hick.org/docs/api/sleep/parser/ParserConfig.html</A>
+
+ParserConfig.setSleepClasspath(&quot;/usr/local/jboss/server/default/deploy/deploy.last/TestService.sar&quot;);
+
+This method should be called before you parse/compile a script (so before
+loader.loadScript).
+
+runScript literally takes the compiled and ready to run script and starts
+executing it.  Nothing more to it than that.
+
+Here is the code Sleep uses to hunt for a jar file (located in
+ParserConfig.java):
+
+   /** Search the sleep classpath for the specified file.  Returns a File object reflecting where the
+       file was found.  This method does not return null.  If the file does not exist then a File object
+       constructed with just the passed in name is returned */
+   public static File findJarFile(String name)
+   {
+       File cp = new File(name);
+
+       if (cp.exists()) { return cp; }
+
+       String[] paths = System.getProperty(&quot;sleep.classpath&quot;, &quot;.&quot;).split(&quot;;&quot;);
+
+       for (int x = 0; x &lt; paths.length; x++)
+       {
+          File temp = new File(paths[x], name);
+          if (temp.exists())
+          {
+             return temp;
+          }
+       }
+
+       return cp;
+   }
+
+Hopefully that helps you out.  I'm getting ready to start rebuilding the
+Sleep Developer's Guide (for extending/embedding Sleep).  Questions like
+this are valuable to me as it will ensure I don't let these types of
+details slip through the cracks.
+
+Good luck.
+
+-- Raphael
+
+On Wed, 4 Jul 2007, SHASHIDHAR MISRA wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   I have a problem  as how to pass the system property sleep.classpath from the java code.
+</I>&gt;<i>
+</I>&gt;<i>   I have a sleep script which I want to run by passing the system property sleep.classpath.
+</I>&gt;<i>   I want my script to locate a jar depending upon the value of sleep.classpath.
+</I>&gt;<i>   When I am running my sleep script from the command prompt such as
+</I>&gt;<i>
+</I>&gt;<i>   java -Dsleep.classpath=/usr/local/jboss/server/default/deploy/deploy.last/TestService.sar -jar /usr/local/jboss/server/default/lib/sleep.jar test.sl
+</I>&gt;<i>
+</I>&gt;<i>   It's getting the variable sleep.classpath and it's running fine.
+</I>&gt;<i>
+</I>&gt;<i>   However when I am running the sleep script from my java code such as
+</I>&gt;<i>
+</I>&gt;<i>   String function = &quot;execute&quot;;
+</I>&gt;<i>   ScriptLoader loader = new ScriptLoader();
+</I>&gt;<i>   loader.addSpecificBridge(new SetupBridge());
+</I>&gt;<i>   ScriptInstance scriptLoad = loader.loadScript(sleepScript);
+</I>&gt;<i>   scriptLoad.runScript();
+</I>&gt;<i>   Scalar output = scriptLoad.callFunction(&quot;&amp;&quot;+function, new Stack());
+</I>&gt;<i>
+</I>&gt;<i>   It's not getting the variable sleep.classpath .
+</I>&gt;<i>   As it is throwing the following error
+</I>&gt;<i>   Is there some way through which I can pass the variable sleep.classpath from the java code.
+</I>&gt;<i>   How does the runScript method executes a sleep script?
+</I>&gt;<i>   Please suggest if anyone has any clues. I am not sure as how to go for this.
+</I>&gt;<i>   Thanx in advance.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i>   Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+</I>&gt;<i> 2. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Mon, 2 Jul 2007 04:13:56 -0700 (PDT)
+</I>&gt;<i> From: SHASHIDHAR MISRA
+</I>&gt;<i> Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+</I>&gt;<i> 1
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">846477.48306.qm at web57711.mail.re3.yahoo.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi just a little modification to the script I am wriiting. But I am still facing the same problem
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> import org.com.test.Person from: common-jars.jar;
+</I>&gt;<i>
+</I>&gt;<i> $person= [new Person];
+</I>&gt;<i> [$person setName: &quot;shashi&quot; ];
+</I>&gt;<i> println(&quot;Name is: &quot; . [$person getName]);
+</I>&gt;<i>
+</I>&gt;<i> Thanks
+</I>&gt;<i> Shashidhar
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Re: updating a bean class in java through a sleep script
+</I>&gt;<i> (SHASHIDHAR MISRA)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+</I>&gt;<i> From: SHASHIDHAR MISRA
+</I>&gt;<i> Subject: Re: [Sleep-developers] updating a bean class in java through
+</I>&gt;<i> a sleep script
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">526585.51056.qm at web57713.mail.re3.yahoo.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi Raphel,
+</I>&gt;<i>
+</I>&gt;<i> Thanks for the reply
+</I>&gt;<i>
+</I>&gt;<i> I am trying this approach but I am getting some CLASSPATH error
+</I>&gt;<i>
+</I>&gt;<i> I am executing a sleep script which contains following
+</I>&gt;<i>
+</I>&gt;<i> import org.com.test from: common-jars.jar;
+</I>&gt;<i>
+</I>&gt;<i> $person= [new Person];
+</I>&gt;<i> [$person setName: &quot;shashi&quot; ];
+</I>&gt;<i> println(&quot;Name is: &quot; . [$person getName]);
+</I>&gt;<i>
+</I>&gt;<i> Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+</I>&gt;<i>
+</I>&gt;<i> java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+</I>&gt;<i>
+</I>&gt;<i> I am getting a ClassNotFound error.
+</I>&gt;<i> I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+</I>&gt;<i>
+</I>&gt;<i> I this correct what I am doing or there is something else which I am missing?
+</I>&gt;<i> Please suggest.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Re: updating a bean class in java through a sleep script
+</I>&gt;<i> (Raphael Mudge)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+</I>&gt;<i> From: Raphael Mudge
+</I>&gt;<i> Subject: Re: [Sleep-developers] updating a bean class in java through
+</I>&gt;<i> a sleep script
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID:
+</I>&gt;<i>
+</I>&gt;<i> Content-Type: TEXT/PLAIN; charset=US-ASCII
+</I>&gt;<i>
+</I>&gt;<i> Hi there. This isn't too bad to do. Sleep supports interacting with Java
+</I>&gt;<i> classes quite well.
+</I>&gt;<i>
+</I>&gt;<i> First off you'll want to import the package containing your class. The
+</I>&gt;<i> syntax to do this is the same as Java.
+</I>&gt;<i>
+</I>&gt;<i> import java.util.*; # as an example.
+</I>&gt;<i>
+</I>&gt;<i> or
+</I>&gt;<i>
+</I>&gt;<i> import stuff.people.Person from: mystuff.jar; # import from a jar
+</I>&gt;<i>
+</I>&gt;<i> To instantiate your class:
+</I>&gt;<i>
+</I>&gt;<i> $person = [new Person];
+</I>&gt;<i> [$person setName: &quot;SHASHIDHAR MISRA&quot;];
+</I>&gt;<i> println(&quot;Name is: &quot; . [$person getName]);
+</I>&gt;<i>
+</I>&gt;<i> To update a public field use the setField function. General format for
+</I>&gt;<i> using Java objects from Sleep is:
+</I>&gt;<i>
+</I>&gt;<i> [$object methodName: arg1, arg2, ...];
+</I>&gt;<i>
+</I>&gt;<i> More on this concept at: <A HREF="http://sleep.hick.org/docs/manual/hoes.html">http://sleep.hick.org/docs/manual/hoes.html</A>
+</I>&gt;<i>
+</I>&gt;<i> Hope this helps.
+</I>&gt;<i>
+</I>&gt;<i> -- Raphael
+</I>&gt;<i>
+</I>&gt;<i> On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am struck up at a point wherein I want to update a bean class through my sleep script.
+</I>&gt;<i> &gt; First of all is it possible to update a bean class through a sleep script?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Supppose I have a java class Person.java
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public class Person {
+</I>&gt;<i> &gt; String name;
+</I>&gt;<i> &gt; int age;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public String getName(){
+</I>&gt;<i> &gt; return name;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public int getAge(){
+</I>&gt;<i> &gt; return age;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public void setName(String name){
+</I>&gt;<i> &gt; this.name = name;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public void setAge(int age){
+</I>&gt;<i> &gt; this.age = age;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Now I have a sleep script through which I want to initialize a object of this class.
+</I>&gt;<i> &gt; I am not sure how to go for this.
+</I>&gt;<i> &gt; Please suggest.
+</I>&gt;<i> &gt; Thanx in advance
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ---------------------------------
+</I>&gt;<i> &gt; We won't tell. Get more on shows you hate to love
+</I>&gt;<i> &gt; (and love to hate): Yahoo! TV's Guilty Pleasures list.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 10, Issue 6
+</I>&gt;<i> ***********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Expecting? Get great news right away with email Auto-Check.
+</I>&gt;<i> Try the Yahoo! Mail Beta.
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL: <A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 11, Issue 1
+</I>&gt;<i> ***********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Yahoo! oneSearch: Finally, mobile search that gives answers, not web links.
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL: <A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/0f7f3b71/attachment-0001.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/0f7f3b71/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 2
+</I>&gt;<i> Date: Mon, 2 Jul 2007 22:51:58 -0700 (PDT)
+</I>&gt;<i> From: SHASHIDHAR MISRA
+</I>&gt;<i> Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+</I>&gt;<i> 1
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">630405.40658.qm at web57702.mail.re3.yahoo.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> The CLASSPATH error was probably because of the sleep version. Previously I was using version 2.0 but once I changed my version to 2.1 the CLASSPATH error was resolved.
+</I>&gt;<i> Thanx for all the suggestions.
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Re: updating a bean class in java through a sleep script
+</I>&gt;<i> (SHASHIDHAR MISRA)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+</I>&gt;<i> From: SHASHIDHAR MISRA
+</I>&gt;<i> Subject: Re: [Sleep-developers] updating a bean class in java through
+</I>&gt;<i> a sleep script
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID: &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">526585.51056.qm at web57713.mail.re3.yahoo.com</A>&gt;
+</I>&gt;<i> Content-Type: text/plain; charset=&quot;iso-8859-1&quot;
+</I>&gt;<i>
+</I>&gt;<i> Hi Raphel,
+</I>&gt;<i>
+</I>&gt;<i> Thanks for the reply
+</I>&gt;<i>
+</I>&gt;<i> I am trying this approach but I am getting some CLASSPATH error
+</I>&gt;<i>
+</I>&gt;<i> I am executing a sleep script which contains following
+</I>&gt;<i>
+</I>&gt;<i> import org.com.test from: common-jars.jar;
+</I>&gt;<i>
+</I>&gt;<i> $person= [new Person];
+</I>&gt;<i> [$person setName: &quot;shashi&quot; ];
+</I>&gt;<i> println(&quot;Name is: &quot; . [$person getName]);
+</I>&gt;<i>
+</I>&gt;<i> Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+</I>&gt;<i>
+</I>&gt;<i> java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+</I>&gt;<i>
+</I>&gt;<i> I am getting a ClassNotFound error.
+</I>&gt;<i> I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+</I>&gt;<i>
+</I>&gt;<i> I this correct what I am doing or there is something else which I am missing?
+</I>&gt;<i> Please suggest.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i> Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Re: updating a bean class in java through a sleep script
+</I>&gt;<i> (Raphael Mudge)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+</I>&gt;<i> From: Raphael Mudge
+</I>&gt;<i> Subject: Re: [Sleep-developers] updating a bean class in java through
+</I>&gt;<i> a sleep script
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID:
+</I>&gt;<i>
+</I>&gt;<i> Content-Type: TEXT/PLAIN; charset=US-ASCII
+</I>&gt;<i>
+</I>&gt;<i> Hi there. This isn't too bad to do. Sleep supports interacting with Java
+</I>&gt;<i> classes quite well.
+</I>&gt;<i>
+</I>&gt;<i> First off you'll want to import the package containing your class. The
+</I>&gt;<i> syntax to do this is the same as Java.
+</I>&gt;<i>
+</I>&gt;<i> import java.util.*; # as an example.
+</I>&gt;<i>
+</I>&gt;<i> or
+</I>&gt;<i>
+</I>&gt;<i> import stuff.people.Person from: mystuff.jar; # import from a jar
+</I>&gt;<i>
+</I>&gt;<i> To instantiate your class:
+</I>&gt;<i>
+</I>&gt;<i> $person = [new Person];
+</I>&gt;<i> [$person setName: &quot;SHASHIDHAR MISRA&quot;];
+</I>&gt;<i> println(&quot;Name is: &quot; . [$person getName]);
+</I>&gt;<i>
+</I>&gt;<i> To update a public field use the setField function. General format for
+</I>&gt;<i> using Java objects from Sleep is:
+</I>&gt;<i>
+</I>&gt;<i> [$object methodName: arg1, arg2, ...];
+</I>&gt;<i>
+</I>&gt;<i> More on this concept at: <A HREF="http://sleep.hick.org/docs/manual/hoes.html">http://sleep.hick.org/docs/manual/hoes.html</A>
+</I>&gt;<i>
+</I>&gt;<i> Hope this helps.
+</I>&gt;<i>
+</I>&gt;<i> -- Raphael
+</I>&gt;<i>
+</I>&gt;<i> On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am struck up at a point wherein I want to update a bean class through my sleep script.
+</I>&gt;<i> &gt; First of all is it possible to update a bean class through a sleep script?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Supppose I have a java class Person.java
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public class Person {
+</I>&gt;<i> &gt; String name;
+</I>&gt;<i> &gt; int age;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public String getName(){
+</I>&gt;<i> &gt; return name;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public int getAge(){
+</I>&gt;<i> &gt; return age;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public void setName(String name){
+</I>&gt;<i> &gt; this.name = name;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; public void setAge(int age){
+</I>&gt;<i> &gt; this.age = age;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Now I have a sleep script through which I want to initialize a object of this class.
+</I>&gt;<i> &gt; I am not sure how to go for this.
+</I>&gt;<i> &gt; Please suggest.
+</I>&gt;<i> &gt; Thanx in advance
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; ---------------------------------
+</I>&gt;<i> &gt; We won't tell. Get more on shows you hate to love
+</I>&gt;<i> &gt; (and love to hate): Yahoo! TV's Guilty Pleasures list.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 10, Issue 6
+</I>&gt;<i> ***********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Expecting? Get great news right away with email Auto-Check.
+</I>&gt;<i> Try the Yahoo! Mail Beta.
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL: <A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 11, Issue 1
+</I>&gt;<i> ***********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Moody friends. Drama queens. Your life? Nope! - their life, your story.
+</I>&gt;<i> Play Sims Stories at Yahoo! Games.
+</I>&gt;<i> -------------- next part --------------
+</I>&gt;<i> An HTML attachment was scrubbed...
+</I>&gt;<i> URL: <A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/1adb13f1/attachment-0001.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/1adb13f1/attachment-0001.html</A>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 11, Issue 2
+</I>&gt;<i> ***********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Park yourself in front of a world of choices in alternative vehicles.
+</I>&gt;<i> Visit the Yahoo! Auto Green Center.
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000054.html">[Sleep-developers] setting the system property sleep.classpath from	the java code
+</A></li>
+	<LI>Next message: <A HREF="000056.html">[Sleep-developers] Sleep 2.1 beta 18 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

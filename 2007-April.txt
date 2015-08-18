@@ -1,0 +1,26 @@
+From raffi at hick.org  Thu Apr 26 02:34:20 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 25 Apr 2007 19:34:20 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 15 released!
+Message-ID: <Pine.LNX.4.58.0704251932340.26043@jethro.hick.org>
+
+Hello everyone,
+I'm experiencing a little bit of end of term crunch.  Hence the delayed
+beta.  Sleep 2.1-b15 is now out.  This release is mostly bug fixes.
+Particuarly with how Sleep handles converting scalar arrays to Java
+arrays.  I also added an assert command.
+
+Still a few open bugs/issues to look at.  That aside, this development
+cycle is almost complete.
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+As always, enjoy the beta!
+
+-- Raphael
+
+

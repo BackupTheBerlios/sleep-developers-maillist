@@ -1,0 +1,110 @@
+From Aparna.Krishna at comverse.com  Mon Apr 24 19:32:24 2006
+From: Aparna.Krishna at comverse.com (Krishna Aparna)
+Date: Mon, 24 Apr 2006 13:32:24 -0400
+Subject: [Sleep-developers] How to get a hash from sleep script to Java HashMap
+Message-ID: <849535E338E99741B7F7413F73253EDB03A84FCA@us-nj-mail1.comverse.com>
+
+Hi Raphael
+
+
+   We are planning on using Sleep in our project. I would like to know
+if there is a good way to pass a nested data structure from a sleep
+script to Java.
+
+   %root["template"] = "aparna";
+   %root["dataname"] = "result";
+    %root["result"] = @arrayOfHashes; 
+
+How can I access %root from Java Application?
+
+ Scalar testvar  =  script.getScriptVariables().getScalar("%root"); 
+
+Is there a way to convert/cast testvar to a HashMap? Also can we convert
+an array to an ArrayList?
+
+Regards,
+Aparna
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20060424/e86cc0b5/attachment.html>
+
+From raffi at hick.org  Tue Apr 25 00:00:22 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 24 Apr 2006 17:00:22 -0500 (CDT)
+Subject: [Sleep-developers] How to get a hash from sleep script to Java
+ HashMap
+In-Reply-To: <849535E338E99741B7F7413F73253EDB03A84FCA@us-nj-mail1.comverse.com>
+References: <849535E338E99741B7F7413F73253EDB03A84FCA@us-nj-mail1.comverse.com>
+Message-ID: <Pine.LNX.4.58.0604241646540.32736@jethro.hick.org>
+
+Hi Aparna,
+You are on the right track as far as obtaining the %root
+sleep.runtime.Scalar object.
+
+What you may be looking for is a routine like the following:
+
+import java.util.HashMap;
+import java.util.Iterator;
+import sleep.runtime.Scalar;
+
+public static HashMap toHashMap(Scalar value)
+{
+   HashMap temp = new HashMap();
+
+   Iterator i = value.getHash().keys().scalarIterator();
+   while (i.hasNext())
+   {
+      Scalar key = (Scalar)i.next();
+
+      /* note: default Sleep hash implementation stores all keys as strings */
+      temp.put(key.objectValue(), value.getHash().getAt(key).objectValue());
+   }
+
+   return temp;
+}
+
+Hope this helps (I haven't ran/tested the above code but it should work).
+Also be sure to check out the API docs for Sleep at:
+http://sleep.hick.org/docs/api/
+
+The array conversion is a little more straight forward, just initialize
+your favorite container and use getArray() on a scalar and loop through it
+with the scalar iterator bit as above.
+
+Sleep might benefit from an API to do this eh?
+
+Good luck.
+
+-- Raphael
+
+On Mon, 24 Apr 2006, Krishna Aparna wrote:
+
+> Hi Raphael
+>
+>
+>    We are planning on using Sleep in our project. I would like to know
+> if there is a good way to pass a nested data structure from a sleep
+> script to Java.
+>
+>    %root["template"] = "aparna";
+>    %root["dataname"] = "result";
+>     %root["result"] = @arrayOfHashes;
+>
+> How can I access %root from Java Application?
+>
+>  Scalar testvar  =  script.getScriptVariables().getScalar("%root");
+>
+> Is there a way to convert/cast testvar to a HashMap? Also can we convert
+> an array to an ArrayList?
+>
+> Regards,
+> Aparna
+>
+>
+>
+>
+
+

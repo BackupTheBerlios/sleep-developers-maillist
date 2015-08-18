@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] scalar parsing problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20scalar%20parsing%20problem&In-Reply-To=%3C004101c69e2e%24c10e1e50%24432a5af0%24%40com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000018.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] scalar parsing problem</H1>
+    <B>Dani Irinchev</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20scalar%20parsing%20problem&In-Reply-To=%3C004101c69e2e%24c10e1e50%24432a5af0%24%40com%3E"
+       TITLE="[Sleep-developers] scalar parsing problem">dani at sferyx.com
+       </A><BR>
+    <I>Mon Jul  3 01:25:06 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000018.html">[Sleep-developers] scalar parsing problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi guys,
+
+The following code generates a parsing error:
+
+ 
+
+$a = &quot;asd&quot;;
+
+$b = &quot;fgh&quot;;
+
+println(&quot;$a;$b&quot;);
+
+ 
+
+saying:
+
+ 
+
+YourCodeSucksException: 1 error(s): Unknown expression at 3
+
+        at sleep.parser.Parser.parse(Unknown Source)
+
+        at sleep.parser.Parser.parse(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+        at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+
+ 
+
+Am I doing something wrong; I just want the two values separated by the ';'.
+
+Cheers, Dani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20060703/b8ccfb2f/attachment.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20060703/b8ccfb2f/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000018.html">[Sleep-developers] scalar parsing problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 10 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2010%20released%21&In-Reply-To=%3CPine.LNX.4.58.0611202039360.29646%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 10 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2010%20released%21&In-Reply-To=%3CPine.LNX.4.58.0611202039360.29646%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 10 released!">raffi at hick.org
+       </A><BR>
+    <I>Tue Nov 21 03:47:37 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hola,
+Sleep 2.1-b10 has been released.  This release contains a few feature
+enhancements and several bug fixes.
+
+Some of the items worth noting:
+
+- I/O functions that read and print characters are unicode aware once
+  again.  I originally made them non-unicode aware to ensure that mark,
+  skip, and reset on a handle all worked no matter what op you were using.
+  A little bit of hacking and now I have both.  The function &amp;setEncoding
+  was added to allow specifying which charset to interpret print/read ops
+  to the stream with.
+
+- Added \x and \u literals for specifying 8 and 16 bit characters within
+  a parsed literal string.
+
+- Added assignment operators: +=, -=, *=, /=, etc..
+  These also work with tuple assignment allowing some cool side effects,
+  i.e. to add the elements of two arrays together:
+  (@a) += @b;
+
+- Fixed &amp;consume so the code to hash/checksum a file is now fast and
+  simple :)
+
+There is other stuff as well.  A parser bug was fixed that prevented out
+of context bareword tokens from being flagged as an error.  One problem
+this caused was scripters typing null in lieu of $null never received an
+error.
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+I'm planning one more beta with a few new features.  The next beta may be
+a release candidate for Sleep 2.1.  At the moment I am looking at my busy
+life and the daunting task of finishing the new Sleep manual in a
+reasonable amount of time.  I may release without the new documentation.
+Not sure yet.
+
+Please enjoy the beta!
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

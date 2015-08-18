@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] passing a varaible to the exec comand
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20passing%20a%20varaible%20to%20the%20exec%20comand&In-Reply-To=%3CPine.LNX.4.58.0705240709390.20322%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000042.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] passing a varaible to the exec comand</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20passing%20a%20varaible%20to%20the%20exec%20comand&In-Reply-To=%3CPine.LNX.4.58.0705240709390.20322%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] passing a varaible to the exec comand">raffi at hick.org
+       </A><BR>
+    <I>Thu May 24 14:21:03 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000042.html">[Sleep-developers] passing a varaible to the exec comand
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I would make sure you're not have an initial space in your exec command
+i.e.
+
+$handle = exec(&quot;$jbossPath $+ /tasks/test.sl&quot;); # $+ is a concetenation op wi &quot;strings&quot;
+
+The reason behind the space thing is if you pass a string as the first
+parameter of exec, sleep will try to split it up into tokens using
+whitespace as the delimeter.  The first token will be the command, the
+second one the first argument, the third one the second argument, etc.  If
+you want your arguments/paths to contain spaces then you can pass an array
+as the first argument to exec() and it will use that as the source of the
+tokens.
+
+Usually it is also a good idea to assign the return value of exec to a
+$handle so you can wait($handle) or closef($handle) if you choose to do
+so later.  Not to mention you'd be able to read from it and things like
+that as well. Use wait($handle) to wait for the process to complete as
+exec is not a blocking call.
+
+As for getting ahold of current environment variables, Java has a
+deprecated method in the System class that may work for you...
+
+$var = [System getenv: &quot;PATH&quot;]; # get the $ENV{PATH} var
+
+seems to work for me...
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">raffi at beardsley</A> ~]$ java -jar sleep.jar -x '[System getenv: &quot;PATH&quot;]'
+/sw/bin:/sw/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
+
+Now as for passing environment variables into exec.  This can be done as
+well.  The in-progress reference has some information on the exec()
+command:
+
+<A HREF="http://sleep.hick.org/docs/manual/exec.html">http://sleep.hick.org/docs/manual/exec.html</A>
+
+i.e.:
+
+%env    = %(FOO =&gt; &quot;value&quot;, BAR =&gt; &quot;bleh&quot;, PATH =&gt; &quot;$path $+ ; $+ c:\\blah&quot;);
+$handle = exec(&quot;$jbossPath $+ /tests/whatever.sl&quot;, %env);
+
+I think that about answers your questions.  Good luck!
+
+-- Raphael
+
+On Thu, 24 May 2007, SHASHIDHAR MISRA wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i>   I am struck up at a point wherein
+</I>&gt;<i>   1.  I want to read an environemt variable in my sleep script.
+</I>&gt;<i>   2. Suppose I have read the evvironment variable somehow, I want to pass it to the exec command.
+</I>&gt;<i>
+</I>&gt;<i>   for example
+</I>&gt;<i>
+</I>&gt;<i>   $jbossPath = &quot;/usr/local/jboss&quot;;
+</I>&gt;<i>   exec(&quot; $jbossPath/tasks/test.sl&quot;);
+</I>&gt;<i>
+</I>&gt;<i>    I am getting a error overhere something like this
+</I>&gt;<i>   java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+</I>&gt;<i>         at java.lang.String.substring(String.java:1444)
+</I>&gt;<i>         at sleep.parser.ParserUtilities.extract(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseParameters(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseIdea(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.CodeGenerator.parseBlock(Unknown Source)
+</I>&gt;<i>         at sleep.parser.Parser.parse(Unknown Source)
+</I>&gt;<i>         at sleep.parser.Parser.parse(Unknown Source)
+</I>&gt;<i>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+</I>&gt;<i>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+</I>&gt;<i>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+</I>&gt;<i>         at sleep.runtime.ScriptLoader.loadScript(Unknown Source)
+</I>&gt;<i>         at sleep.console.TextConsole.main(Unknown Source)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Can anyone Please suggest as how should I go for it?
+</I>&gt;<i>   Thanx in advance
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A> wrote:
+</I>&gt;<i>   Send Sleep-developers mailing list submissions to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> To subscribe or unsubscribe via the World Wide Web, visit
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i> or, via email, send a message with subject or body 'help' to
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-request at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> You can reach the person managing the list at
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers-owner at lists.berlios.de</A>
+</I>&gt;<i>
+</I>&gt;<i> When replying, please edit your Subject line so it is more specific
+</I>&gt;<i> than &quot;Re: Contents of Sleep-developers digest...&quot;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Today's Topics:
+</I>&gt;<i>
+</I>&gt;<i> 1. Sleep 2.1 beta 10 released! (Raphael Mudge)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> Message: 1
+</I>&gt;<i> Date: Mon, 20 Nov 2006 20:47:37 -0600 (CST)
+</I>&gt;<i> From: Raphael Mudge
+</I>&gt;<i> Subject: [Sleep-developers] Sleep 2.1 beta 10 released!
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> Message-ID:
+</I>&gt;<i>
+</I>&gt;<i> Content-Type: TEXT/PLAIN; charset=US-ASCII
+</I>&gt;<i>
+</I>&gt;<i> Hola,
+</I>&gt;<i> Sleep 2.1-b10 has been released. This release contains a few feature
+</I>&gt;<i> enhancements and several bug fixes.
+</I>&gt;<i>
+</I>&gt;<i> Some of the items worth noting:
+</I>&gt;<i>
+</I>&gt;<i> - I/O functions that read and print characters are unicode aware once
+</I>&gt;<i> again. I originally made them non-unicode aware to ensure that mark,
+</I>&gt;<i> skip, and reset on a handle all worked no matter what op you were using.
+</I>&gt;<i> A little bit of hacking and now I have both. The function &amp;setEncoding
+</I>&gt;<i> was added to allow specifying which charset to interpret print/read ops
+</I>&gt;<i> to the stream with.
+</I>&gt;<i>
+</I>&gt;<i> - Added \x and \u literals for specifying 8 and 16 bit characters within
+</I>&gt;<i> a parsed literal string.
+</I>&gt;<i>
+</I>&gt;<i> - Added assignment operators: +=, -=, *=, /=, etc..
+</I>&gt;<i> These also work with tuple assignment allowing some cool side effects,
+</I>&gt;<i> i.e. to add the elements of two arrays together:
+</I>&gt;<i> (@a) += @b;
+</I>&gt;<i>
+</I>&gt;<i> - Fixed &amp;consume so the code to hash/checksum a file is now fast and
+</I>&gt;<i> simple :)
+</I>&gt;<i>
+</I>&gt;<i> There is other stuff as well. A parser bug was fixed that prevented out
+</I>&gt;<i> of context bareword tokens from being flagged as an error. One problem
+</I>&gt;<i> this caused was scripters typing null in lieu of $null never received an
+</I>&gt;<i> error.
+</I>&gt;<i>
+</I>&gt;<i> Change log is available here:
+</I>&gt;<i> <A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+</I>&gt;<i>
+</I>&gt;<i> Sleep can be downloaded at:
+</I>&gt;<i> <A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+</I>&gt;<i>
+</I>&gt;<i> I'm planning one more beta with a few new features. The next beta may be
+</I>&gt;<i> a release candidate for Sleep 2.1. At the moment I am looking at my busy
+</I>&gt;<i> life and the daunting task of finishing the new Sleep manual in a
+</I>&gt;<i> reasonable amount of time. I may release without the new documentation.
+</I>&gt;<i> Not sure yet.
+</I>&gt;<i>
+</I>&gt;<i> Please enjoy the beta!
+</I>&gt;<i>
+</I>&gt;<i> -- Raphael
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">https://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> End of Sleep-developers Digest, Vol 4, Issue 3
+</I>&gt;<i> **********************************************
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------
+</I>&gt;<i> Get the Yahoo! toolbar and be alerted to new email wherever you're surfing.
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000042.html">[Sleep-developers] passing a varaible to the exec comand
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

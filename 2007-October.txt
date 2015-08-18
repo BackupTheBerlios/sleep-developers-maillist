@@ -1,0 +1,41 @@
+From raffi at hick.org  Thu Oct 25 02:53:38 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 24 Oct 2007 19:53:38 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1-b19
+Message-ID: <Pine.LNX.4.64.0710241944130.29615@hillbilly>
+
+Hello everyone,
+Sleep 2.1-b19 has been released.  Here is a summary of the changes:
+
+- Added callcc to Sleep
+
+This was an extension of the current yield mechanism already in place. 
+callcc enables the current function to call another one with the paused 
+state (ala yield) of the current function passed to the next one as a 
+parameter.  Some think of this as a functional goto.
+
+- Added inline functions
+
+inline functions are the closest thing Sleep has to macros.  I added these 
+because some of the thing you may want to use callcc for could become 
+complicated.  inline functions are a natural way to hide such complex 
+things.
+
+For an example of how these two features work together check out:
+http://rsmudge.livejournal.com/9255.html
+
+Other things?
+
+Socket functions can now be told what interface to bind to.  There was a 
+lot of code refactoring internally.  Also I added some more fault 
+tolerance type functionality within the interpreter.  For 
+example, functions clean up their stack frames properly in the event of failure
+
+As usual the beta is available at: http://sleep.hick.org/
+
+Enjoy the beta.
+
+-- Raphael
+
+
+

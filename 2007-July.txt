@@ -1,0 +1,2082 @@
+From shashidhar_gaurav at yahoo.com  Mon Jul  2 07:57:43 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+Subject: [Sleep-developers] updating a bean class in java through a
+	sleep script
+In-Reply-To: <mailman.87.1183197716.17649.sleep-developers@lists.berlios.de>
+Message-ID: <526585.51056.qm@web57713.mail.re3.yahoo.com>
+
+Hi Raphel,
+   
+  Thanks for the reply
+   
+  I am trying this approach but I am getting some CLASSPATH error
+   
+  I am executing a sleep script which contains following
+   
+  import org.com.test from: common-jars.jar;
+   
+  $person= [new Person];
+  [$person setName: "shashi" ];
+  println("Name is: " . [$person getName]);
+   
+  Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+   
+  java -Dsleep.classpath=/usr/local/jboss/test  -jar sleep.jar test.sl
+   
+  I am getting  a ClassNotFound error.
+  I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+   
+  I this correct what I am doing or there is something else which I am missing?
+  Please suggest.
+   
+   
+   
+   
+   
+   
+  
+
+sleep-developers-request at lists.berlios.de wrote:
+  Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+From: Raphael Mudge 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hi there. This isn't too bad to do. Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class. The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function. General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+> I am struck up at a point wherein I want to update a bean class through my sleep script.
+> First of all is it possible to update a bean class through a sleep script?
+>
+> Supppose I have a java class Person.java
+>
+> public class Person {
+> String name;
+> int age;
+>
+> public String getName(){
+> return name;
+> }
+>
+> public int getAge(){
+> return age;
+> }
+>
+> public void setName(String name){
+> this.name = name;
+> }
+>
+> public void setAge(int age){
+> this.age = age;
+> }
+>
+> }
+>
+> Now I have a sleep script through which I want to initialize a object of this class.
+> I am not sure how to go for this.
+> Please suggest.
+> Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 10, Issue 6
+***********************************************
+
+
+ 
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment.html>
+
+From shashidhar_gaurav at yahoo.com  Mon Jul  2 13:13:56 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Mon, 2 Jul 2007 04:13:56 -0700 (PDT)
+Subject: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue 1
+In-Reply-To: <mailman.99.1183370510.29172.sleep-developers@lists.berlios.de>
+Message-ID: <846477.48306.qm@web57711.mail.re3.yahoo.com>
+
+Hi just a little modification to the script I am wriiting. But I am still facing the same problem
+  
+ 
+  import org.com.test.Person  from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+   
+  Thanks 
+  Shashidhar
+
+   
+  
+sleep-developers-request at lists.berlios.de wrote:
+  Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(SHASHIDHAR MISRA)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi Raphel,
+
+Thanks for the reply
+
+I am trying this approach but I am getting some CLASSPATH error
+
+I am executing a sleep script which contains following
+
+import org.com.test from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+
+Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+
+java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+
+I am getting a ClassNotFound error.
+I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+
+I this correct what I am doing or there is something else which I am missing?
+Please suggest.
+
+
+
+
+
+
+
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+From: Raphael Mudge 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hi there. This isn't too bad to do. Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class. The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function. General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+> I am struck up at a point wherein I want to update a bean class through my sleep script.
+> First of all is it possible to update a bean class through a sleep script?
+>
+> Supppose I have a java class Person.java
+>
+> public class Person {
+> String name;
+> int age;
+>
+> public String getName(){
+> return name;
+> }
+>
+> public int getAge(){
+> return age;
+> }
+>
+> public void setName(String name){
+> this.name = name;
+> }
+>
+> public void setAge(int age){
+> this.age = age;
+> }
+>
+> }
+>
+> Now I have a sleep script through which I want to initialize a object of this class.
+> I am not sure how to go for this.
+> Please suggest.
+> Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 10, Issue 6
+***********************************************
+
+
+
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html 
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 11, Issue 1
+***********************************************
+
+
+       
+---------------------------------
+Yahoo! oneSearch: Finally,  mobile search that gives answers, not web links. 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/0f7f3b71/attachment.html>
+
+From shashidhar_gaurav at yahoo.com  Tue Jul  3 07:51:58 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Mon, 2 Jul 2007 22:51:58 -0700 (PDT)
+Subject: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue 1
+In-Reply-To: <mailman.99.1183370510.29172.sleep-developers@lists.berlios.de>
+Message-ID: <630405.40658.qm@web57702.mail.re3.yahoo.com>
+
+Hi,
+   
+  The CLASSPATH error was probably because of the sleep version. Previously I was using version 2.0  but once I changed my version to 2.1 the CLASSPATH error was resolved.
+  Thanx for all the suggestions.
+
+sleep-developers-request at lists.berlios.de wrote:
+  Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(SHASHIDHAR MISRA)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi Raphel,
+
+Thanks for the reply
+
+I am trying this approach but I am getting some CLASSPATH error
+
+I am executing a sleep script which contains following
+
+import org.com.test from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+
+Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+
+java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+
+I am getting a ClassNotFound error.
+I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+
+I this correct what I am doing or there is something else which I am missing?
+Please suggest.
+
+
+
+
+
+
+
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+From: Raphael Mudge 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hi there. This isn't too bad to do. Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class. The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function. General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+> I am struck up at a point wherein I want to update a bean class through my sleep script.
+> First of all is it possible to update a bean class through a sleep script?
+>
+> Supppose I have a java class Person.java
+>
+> public class Person {
+> String name;
+> int age;
+>
+> public String getName(){
+> return name;
+> }
+>
+> public int getAge(){
+> return age;
+> }
+>
+> public void setName(String name){
+> this.name = name;
+> }
+>
+> public void setAge(int age){
+> this.age = age;
+> }
+>
+> }
+>
+> Now I have a sleep script through which I want to initialize a object of this class.
+> I am not sure how to go for this.
+> Please suggest.
+> Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 10, Issue 6
+***********************************************
+
+
+
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html 
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 11, Issue 1
+***********************************************
+
+
+       
+---------------------------------
+Moody friends. Drama queens. Your life? Nope! - their life, your story.
+ Play Sims Stories at Yahoo! Games. 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/1adb13f1/attachment.html>
+
+From shashidhar_gaurav at yahoo.com  Wed Jul  4 14:01:10 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Wed, 4 Jul 2007 05:01:10 -0700 (PDT)
+Subject: [Sleep-developers] setting the system property sleep.classpath from
+	the java code
+In-Reply-To: <mailman.107.1183456921.4499.sleep-developers@lists.berlios.de>
+Message-ID: <736915.40787.qm@web57713.mail.re3.yahoo.com>
+
+Hi,
+   
+  I have a problem  as how to pass the system property sleep.classpath from the java code.
+   
+  I have a sleep script which I want to run by passing the system property sleep.classpath.
+  I want my script to locate a jar depending upon the value of sleep.classpath.
+  When I am running my sleep script from the command prompt such as
+   
+  java -Dsleep.classpath=/usr/local/jboss/server/default/deploy/deploy.last/TestService.sar -jar /usr/local/jboss/server/default/lib/sleep.jar test.sl
+   
+  It's getting the variable sleep.classpath and it's running fine.
+   
+  However when I am running the sleep script from my java code such as
+   
+  String function = "execute";
+  ScriptLoader loader = new ScriptLoader();
+  loader.addSpecificBridge(new SetupBridge());
+  ScriptInstance scriptLoad = loader.loadScript(sleepScript);
+  scriptLoad.runScript();
+  Scalar output = scriptLoad.callFunction("&"+function, new Stack());
+   
+  It's not getting the variable sleep.classpath .
+  As it is throwing the following error
+  Is there some way through which I can pass the variable sleep.classpath from the java code.
+  How does the runScript method executes a sleep script?
+  Please suggest if anyone has any clues. I am not sure as how to go for this.
+  Thanx in advance.
+   
+  
+sleep-developers-request at lists.berlios.de wrote:
+  Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+2. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 2 Jul 2007 04:13:56 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+1
+To: sleep-developers at lists.berlios.de
+Message-ID: <846477.48306.qm at web57711.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi just a little modification to the script I am wriiting. But I am still facing the same problem
+
+
+import org.com.test.Person from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+
+Thanks 
+Shashidhar
+
+
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(SHASHIDHAR MISRA)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi Raphel,
+
+Thanks for the reply
+
+I am trying this approach but I am getting some CLASSPATH error
+
+I am executing a sleep script which contains following
+
+import org.com.test from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+
+Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+
+java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+
+I am getting a ClassNotFound error.
+I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+
+I this correct what I am doing or there is something else which I am missing?
+Please suggest.
+
+
+
+
+
+
+
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+From: Raphael Mudge 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hi there. This isn't too bad to do. Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class. The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function. General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+> I am struck up at a point wherein I want to update a bean class through my sleep script.
+> First of all is it possible to update a bean class through a sleep script?
+>
+> Supppose I have a java class Person.java
+>
+> public class Person {
+> String name;
+> int age;
+>
+> public String getName(){
+> return name;
+> }
+>
+> public int getAge(){
+> return age;
+> }
+>
+> public void setName(String name){
+> this.name = name;
+> }
+>
+> public void setAge(int age){
+> this.age = age;
+> }
+>
+> }
+>
+> Now I have a sleep script through which I want to initialize a object of this class.
+> I am not sure how to go for this.
+> Please suggest.
+> Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 10, Issue 6
+***********************************************
+
+
+
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html 
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 11, Issue 1
+***********************************************
+
+
+
+---------------------------------
+Yahoo! oneSearch: Finally, mobile search that gives answers, not web links. 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/0f7f3b71/attachment-0001.html 
+
+------------------------------
+
+Message: 2
+Date: Mon, 2 Jul 2007 22:51:58 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+1
+To: sleep-developers at lists.berlios.de
+Message-ID: <630405.40658.qm at web57702.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi,
+
+The CLASSPATH error was probably because of the sleep version. Previously I was using version 2.0 but once I changed my version to 2.1 the CLASSPATH error was resolved.
+Thanx for all the suggestions.
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(SHASHIDHAR MISRA)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+From: SHASHIDHAR MISRA 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hi Raphel,
+
+Thanks for the reply
+
+I am trying this approach but I am getting some CLASSPATH error
+
+I am executing a sleep script which contains following
+
+import org.com.test from: common-jars.jar;
+
+$person= [new Person];
+[$person setName: "shashi" ];
+println("Name is: " . [$person getName]);
+
+Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+
+java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+
+I am getting a ClassNotFound error.
+I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+
+I this correct what I am doing or there is something else which I am missing?
+Please suggest.
+
+
+
+
+
+
+
+
+sleep-developers-request at lists.berlios.de wrote:
+Send Sleep-developers mailing list submissions to
+sleep-developers at lists.berlios.de
+
+To subscribe or unsubscribe via the World Wide Web, visit
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+or, via email, send a message with subject or body 'help' to
+sleep-developers-request at lists.berlios.de
+
+You can reach the person managing the list at
+sleep-developers-owner at lists.berlios.de
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of Sleep-developers digest..."
+
+
+Today's Topics:
+
+1. Re: updating a bean class in java through a sleep script
+(Raphael Mudge)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+From: Raphael Mudge 
+Subject: Re: [Sleep-developers] updating a bean class in java through
+a sleep script
+To: sleep-developers at lists.berlios.de
+Message-ID: 
+
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+Hi there. This isn't too bad to do. Sleep supports interacting with Java
+classes quite well.
+
+First off you'll want to import the package containing your class. The
+syntax to do this is the same as Java.
+
+import java.util.*; # as an example.
+
+or
+
+import stuff.people.Person from: mystuff.jar; # import from a jar
+
+To instantiate your class:
+
+$person = [new Person];
+[$person setName: "SHASHIDHAR MISRA"];
+println("Name is: " . [$person getName]);
+
+To update a public field use the setField function. General format for
+using Java objects from Sleep is:
+
+[$object methodName: arg1, arg2, ...];
+
+More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+
+Hope this helps.
+
+-- Raphael
+
+On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+> I am struck up at a point wherein I want to update a bean class through my sleep script.
+> First of all is it possible to update a bean class through a sleep script?
+>
+> Supppose I have a java class Person.java
+>
+> public class Person {
+> String name;
+> int age;
+>
+> public String getName(){
+> return name;
+> }
+>
+> public int getAge(){
+> return age;
+> }
+>
+> public void setName(String name){
+> this.name = name;
+> }
+>
+> public void setAge(int age){
+> this.age = age;
+> }
+>
+> }
+>
+> Now I have a sleep script through which I want to initialize a object of this class.
+> I am not sure how to go for this.
+> Please suggest.
+> Thanx in advance
+>
+>
+>
+> ---------------------------------
+> We won't tell. Get more on shows you hate to love
+> (and love to hate): Yahoo! TV's Guilty Pleasures list.
+
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 10, Issue 6
+***********************************************
+
+
+
+---------------------------------
+Expecting? Get great news right away with email Auto-Check.
+Try the Yahoo! Mail Beta.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html 
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 11, Issue 1
+***********************************************
+
+
+
+---------------------------------
+Moody friends. Drama queens. Your life? Nope! - their life, your story.
+Play Sims Stories at Yahoo! Games. 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/1adb13f1/attachment-0001.html 
+
+------------------------------
+
+_______________________________________________
+Sleep-developers mailing list
+Sleep-developers at lists.berlios.de
+https://lists.berlios.de/mailman/listinfo/sleep-developers
+
+
+End of Sleep-developers Digest, Vol 11, Issue 2
+***********************************************
+
+
+ 	      
+---------------------------------
+Park yourself in front of a world of choices in alternative vehicles.
+Visit the Yahoo! Auto Green Center.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070704/71caee1b/attachment.html>
+
+From raffi at hick.org  Wed Jul  4 16:55:50 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 4 Jul 2007 09:55:50 -0500 (CDT)
+Subject: [Sleep-developers] setting the system property sleep.classpath
+ from the java code
+In-Reply-To: <736915.40787.qm@web57713.mail.re3.yahoo.com>
+References: <736915.40787.qm@web57713.mail.re3.yahoo.com>
+Message-ID: <Pine.LNX.4.58.0707040944560.10127@jethro.hick.org>
+
+Hi Shashidhar,
+There is a static Java method to set and query the Sleep classpath value
+in sleep.parser.ParserConfig.
+
+http://sleep.hick.org/docs/api/sleep/parser/ParserConfig.html
+
+ParserConfig.setSleepClasspath("/usr/local/jboss/server/default/deploy/deploy.last/TestService.sar");
+
+This method should be called before you parse/compile a script (so before
+loader.loadScript).
+
+runScript literally takes the compiled and ready to run script and starts
+executing it.  Nothing more to it than that.
+
+Here is the code Sleep uses to hunt for a jar file (located in
+ParserConfig.java):
+
+   /** Search the sleep classpath for the specified file.  Returns a File object reflecting where the
+       file was found.  This method does not return null.  If the file does not exist then a File object
+       constructed with just the passed in name is returned */
+   public static File findJarFile(String name)
+   {
+       File cp = new File(name);
+
+       if (cp.exists()) { return cp; }
+
+       String[] paths = System.getProperty("sleep.classpath", ".").split(";");
+
+       for (int x = 0; x < paths.length; x++)
+       {
+          File temp = new File(paths[x], name);
+          if (temp.exists())
+          {
+             return temp;
+          }
+       }
+
+       return cp;
+   }
+
+Hopefully that helps you out.  I'm getting ready to start rebuilding the
+Sleep Developer's Guide (for extending/embedding Sleep).  Questions like
+this are valuable to me as it will ensure I don't let these types of
+details slip through the cracks.
+
+Good luck.
+
+-- Raphael
+
+On Wed, 4 Jul 2007, SHASHIDHAR MISRA wrote:
+
+> Hi,
+>
+>   I have a problem  as how to pass the system property sleep.classpath from the java code.
+>
+>   I have a sleep script which I want to run by passing the system property sleep.classpath.
+>   I want my script to locate a jar depending upon the value of sleep.classpath.
+>   When I am running my sleep script from the command prompt such as
+>
+>   java -Dsleep.classpath=/usr/local/jboss/server/default/deploy/deploy.last/TestService.sar -jar /usr/local/jboss/server/default/lib/sleep.jar test.sl
+>
+>   It's getting the variable sleep.classpath and it's running fine.
+>
+>   However when I am running the sleep script from my java code such as
+>
+>   String function = "execute";
+>   ScriptLoader loader = new ScriptLoader();
+>   loader.addSpecificBridge(new SetupBridge());
+>   ScriptInstance scriptLoad = loader.loadScript(sleepScript);
+>   scriptLoad.runScript();
+>   Scalar output = scriptLoad.callFunction("&"+function, new Stack());
+>
+>   It's not getting the variable sleep.classpath .
+>   As it is throwing the following error
+>   Is there some way through which I can pass the variable sleep.classpath from the java code.
+>   How does the runScript method executes a sleep script?
+>   Please suggest if anyone has any clues. I am not sure as how to go for this.
+>   Thanx in advance.
+>
+>
+> sleep-developers-request at lists.berlios.de wrote:
+>   Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+> 2. Re: Sleep-developers Digest, Vol 11, Issue 1 (SHASHIDHAR MISRA)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 2 Jul 2007 04:13:56 -0700 (PDT)
+> From: SHASHIDHAR MISRA
+> Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+> 1
+> To: sleep-developers at lists.berlios.de
+> Message-ID: <846477.48306.qm at web57711.mail.re3.yahoo.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Hi just a little modification to the script I am wriiting. But I am still facing the same problem
+>
+>
+> import org.com.test.Person from: common-jars.jar;
+>
+> $person= [new Person];
+> [$person setName: "shashi" ];
+> println("Name is: " . [$person getName]);
+>
+> Thanks
+> Shashidhar
+>
+>
+>
+> sleep-developers-request at lists.berlios.de wrote:
+> Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Re: updating a bean class in java through a sleep script
+> (SHASHIDHAR MISRA)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+> From: SHASHIDHAR MISRA
+> Subject: Re: [Sleep-developers] updating a bean class in java through
+> a sleep script
+> To: sleep-developers at lists.berlios.de
+> Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Hi Raphel,
+>
+> Thanks for the reply
+>
+> I am trying this approach but I am getting some CLASSPATH error
+>
+> I am executing a sleep script which contains following
+>
+> import org.com.test from: common-jars.jar;
+>
+> $person= [new Person];
+> [$person setName: "shashi" ];
+> println("Name is: " . [$person getName]);
+>
+> Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+>
+> java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+>
+> I am getting a ClassNotFound error.
+> I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+>
+> I this correct what I am doing or there is something else which I am missing?
+> Please suggest.
+>
+>
+>
+>
+>
+>
+>
+>
+> sleep-developers-request at lists.berlios.de wrote:
+> Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Re: updating a bean class in java through a sleep script
+> (Raphael Mudge)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+> From: Raphael Mudge
+> Subject: Re: [Sleep-developers] updating a bean class in java through
+> a sleep script
+> To: sleep-developers at lists.berlios.de
+> Message-ID:
+>
+> Content-Type: TEXT/PLAIN; charset=US-ASCII
+>
+> Hi there. This isn't too bad to do. Sleep supports interacting with Java
+> classes quite well.
+>
+> First off you'll want to import the package containing your class. The
+> syntax to do this is the same as Java.
+>
+> import java.util.*; # as an example.
+>
+> or
+>
+> import stuff.people.Person from: mystuff.jar; # import from a jar
+>
+> To instantiate your class:
+>
+> $person = [new Person];
+> [$person setName: "SHASHIDHAR MISRA"];
+> println("Name is: " . [$person getName]);
+>
+> To update a public field use the setField function. General format for
+> using Java objects from Sleep is:
+>
+> [$object methodName: arg1, arg2, ...];
+>
+> More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+>
+> Hope this helps.
+>
+> -- Raphael
+>
+> On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+>
+> > Hi,
+> >
+> > I am struck up at a point wherein I want to update a bean class through my sleep script.
+> > First of all is it possible to update a bean class through a sleep script?
+> >
+> > Supppose I have a java class Person.java
+> >
+> > public class Person {
+> > String name;
+> > int age;
+> >
+> > public String getName(){
+> > return name;
+> > }
+> >
+> > public int getAge(){
+> > return age;
+> > }
+> >
+> > public void setName(String name){
+> > this.name = name;
+> > }
+> >
+> > public void setAge(int age){
+> > this.age = age;
+> > }
+> >
+> > }
+> >
+> > Now I have a sleep script through which I want to initialize a object of this class.
+> > I am not sure how to go for this.
+> > Please suggest.
+> > Thanx in advance
+> >
+> >
+> >
+> > ---------------------------------
+> > We won't tell. Get more on shows you hate to love
+> > (and love to hate): Yahoo! TV's Guilty Pleasures list.
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 10, Issue 6
+> ***********************************************
+>
+>
+>
+> ---------------------------------
+> Expecting? Get great news right away with email Auto-Check.
+> Try the Yahoo! Mail Beta.
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 11, Issue 1
+> ***********************************************
+>
+>
+>
+> ---------------------------------
+> Yahoo! oneSearch: Finally, mobile search that gives answers, not web links.
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/0f7f3b71/attachment-0001.html
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Mon, 2 Jul 2007 22:51:58 -0700 (PDT)
+> From: SHASHIDHAR MISRA
+> Subject: Re: [Sleep-developers] Sleep-developers Digest, Vol 11, Issue
+> 1
+> To: sleep-developers at lists.berlios.de
+> Message-ID: <630405.40658.qm at web57702.mail.re3.yahoo.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Hi,
+>
+> The CLASSPATH error was probably because of the sleep version. Previously I was using version 2.0 but once I changed my version to 2.1 the CLASSPATH error was resolved.
+> Thanx for all the suggestions.
+>
+> sleep-developers-request at lists.berlios.de wrote:
+> Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Re: updating a bean class in java through a sleep script
+> (SHASHIDHAR MISRA)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Sun, 1 Jul 2007 22:57:43 -0700 (PDT)
+> From: SHASHIDHAR MISRA
+> Subject: Re: [Sleep-developers] updating a bean class in java through
+> a sleep script
+> To: sleep-developers at lists.berlios.de
+> Message-ID: <526585.51056.qm at web57713.mail.re3.yahoo.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Hi Raphel,
+>
+> Thanks for the reply
+>
+> I am trying this approach but I am getting some CLASSPATH error
+>
+> I am executing a sleep script which contains following
+>
+> import org.com.test from: common-jars.jar;
+>
+> $person= [new Person];
+> [$person setName: "shashi" ];
+> println("Name is: " . [$person getName]);
+>
+> Now I am executing my sleep script by passing the CLASSPATH from the command prompt
+>
+> java -Dsleep.classpath=/usr/local/jboss/test -jar sleep.jar test.sl
+>
+> I am getting a ClassNotFound error.
+> I have checked that my common-jars.jar contains my Person.class and the jar is kept at the location /usr/local/jboss/test .
+>
+> I this correct what I am doing or there is something else which I am missing?
+> Please suggest.
+>
+>
+>
+>
+>
+>
+>
+>
+> sleep-developers-request at lists.berlios.de wrote:
+> Send Sleep-developers mailing list submissions to
+> sleep-developers at lists.berlios.de
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+> or, via email, send a message with subject or body 'help' to
+> sleep-developers-request at lists.berlios.de
+>
+> You can reach the person managing the list at
+> sleep-developers-owner at lists.berlios.de
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of Sleep-developers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Re: updating a bean class in java through a sleep script
+> (Raphael Mudge)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Fri, 29 Jun 2007 14:27:00 -0500 (CDT)
+> From: Raphael Mudge
+> Subject: Re: [Sleep-developers] updating a bean class in java through
+> a sleep script
+> To: sleep-developers at lists.berlios.de
+> Message-ID:
+>
+> Content-Type: TEXT/PLAIN; charset=US-ASCII
+>
+> Hi there. This isn't too bad to do. Sleep supports interacting with Java
+> classes quite well.
+>
+> First off you'll want to import the package containing your class. The
+> syntax to do this is the same as Java.
+>
+> import java.util.*; # as an example.
+>
+> or
+>
+> import stuff.people.Person from: mystuff.jar; # import from a jar
+>
+> To instantiate your class:
+>
+> $person = [new Person];
+> [$person setName: "SHASHIDHAR MISRA"];
+> println("Name is: " . [$person getName]);
+>
+> To update a public field use the setField function. General format for
+> using Java objects from Sleep is:
+>
+> [$object methodName: arg1, arg2, ...];
+>
+> More on this concept at: http://sleep.hick.org/docs/manual/hoes.html
+>
+> Hope this helps.
+>
+> -- Raphael
+>
+> On Thu, 28 Jun 2007, SHASHIDHAR MISRA wrote:
+>
+> > Hi,
+> >
+> > I am struck up at a point wherein I want to update a bean class through my sleep script.
+> > First of all is it possible to update a bean class through a sleep script?
+> >
+> > Supppose I have a java class Person.java
+> >
+> > public class Person {
+> > String name;
+> > int age;
+> >
+> > public String getName(){
+> > return name;
+> > }
+> >
+> > public int getAge(){
+> > return age;
+> > }
+> >
+> > public void setName(String name){
+> > this.name = name;
+> > }
+> >
+> > public void setAge(int age){
+> > this.age = age;
+> > }
+> >
+> > }
+> >
+> > Now I have a sleep script through which I want to initialize a object of this class.
+> > I am not sure how to go for this.
+> > Please suggest.
+> > Thanx in advance
+> >
+> >
+> >
+> > ---------------------------------
+> > We won't tell. Get more on shows you hate to love
+> > (and love to hate): Yahoo! TV's Guilty Pleasures list.
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 10, Issue 6
+> ***********************************************
+>
+>
+>
+> ---------------------------------
+> Expecting? Get great news right away with email Auto-Check.
+> Try the Yahoo! Mail Beta.
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070701/98bf22c3/attachment-0001.html
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 11, Issue 1
+> ***********************************************
+>
+>
+>
+> ---------------------------------
+> Moody friends. Drama queens. Your life? Nope! - their life, your story.
+> Play Sims Stories at Yahoo! Games.
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: https://lists.berlios.de/pipermail/sleep-developers/attachments/20070702/1adb13f1/attachment-0001.html
+>
+> ------------------------------
+>
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>
+> End of Sleep-developers Digest, Vol 11, Issue 2
+> ***********************************************
+>
+>
+>
+> ---------------------------------
+> Park yourself in front of a world of choices in alternative vehicles.
+> Visit the Yahoo! Auto Green Center.
+
+
+From raffi at hick.org  Thu Jul  5 05:50:47 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 4 Jul 2007 22:50:47 -0500 (CDT)
+Subject: [Sleep-developers] Sleep 2.1 beta 18 released!
+Message-ID: <Pine.LNX.4.58.0707042244280.4140@jethro.hick.org>
+
+Hi everyone,
+Sleep 2.1-b18 has been released.  This release is a mixed bag of things:
+
+* Added scalar references i.e. \$x as a shortcut for $x => $x.  key/value
+  pairs are often used to move variables between scopes and this sugar
+  merely helps to facilitate such things.
+
+* Added backtick operator to spawn an external program (ala Perl):
+  @files = `ls -alh`;
+
+* Updated Java method resolution to better handle char[] and byte[] types
+
+* More verbose error messages for class/package import
+
+* Updated set functions removeAll, retainAll, and addAll to use scalar
+  "identity" rather than string values for determining equivalence.
+
+The change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+Enjoy the beta.
+
+-- Raphael
+
+
+From shashidhar_gaurav at yahoo.com  Thu Jul  5 13:32:22 2007
+From: shashidhar_gaurav at yahoo.com (SHASHIDHAR MISRA)
+Date: Thu, 5 Jul 2007 04:32:22 -0700 (PDT)
+Subject: [Sleep-developers] setting the system property sleep.classpath
+	from the java code
+In-Reply-To: <mailman.103.1183629710.20126.sleep-developers@lists.berlios.de>
+Message-ID: <182181.37156.qm@web57705.mail.re3.yahoo.com>
+
+Thanx Raphael......it worked
+
+       
+---------------------------------
+Luggage? GPS? Comic books? 
+Check out fitting  gifts for grads at Yahoo! Search.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070705/9c532907/attachment.html>
+
+From andreas.ravnestad at gmail.com  Fri Jul  6 14:05:31 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Fri, 06 Jul 2007 14:05:31 +0200
+Subject: [Sleep-developers] Developer preview: JDBC bridge 1.0
+Message-ID: <468E300B.1010101@gmail.com>
+
+Hi!
+
+I'm posting this here ahead of release to get some fresh eyes on the 
+code. On the todo list is the following:
+ * More error/exception handling
+ * Writing and running unit tests for prepared statements
+
+Basically the only news here since the first version are the prepared 
+statements.
+
+Attached is JDBC.java and a README for quick reference.
+
+-Andreas
+
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: JDBC.java
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070706/530e9125/attachment.ksh>
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: README
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070706/530e9125/attachment-0001.ksh>
+
+From raffi at hick.org  Fri Jul  6 19:07:02 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Fri, 6 Jul 2007 12:07:02 -0500 (CDT)
+Subject: [Sleep-developers] Developer preview: JDBC bridge 1.0
+In-Reply-To: <468E300B.1010101@gmail.com>
+References: <468E300B.1010101@gmail.com>
+Message-ID: <Pine.LNX.4.58.0707061203400.8607@jethro.hick.org>
+
+You're adding prepared statements!!! I have a friend of mine who will love
+you forever.
+
+As a quick aside, I updated your .zip file on the sleep site to include an
+ant build file and slight updates to your example instructions.
+
+Namely use() has been updated a little bit.  The old form of taking a
+string still works.  However one can now do:
+
+import no.printf.whatever.JDBCBridge from: JDBC.jar;
+
+use(^JDBCBridge);
+
+With this form scripters benefit from compile time checking of the
+reachability/existence of the class. (^Something is the Sleep equivalent
+of Something.class in Java).
+
+Good to see you're alive.
+
+-- Raphael
+
+On Fri, 6 Jul 2007, Andreas Ravnestad wrote:
+
+> Hi!
+>
+> I'm posting this here ahead of release to get some fresh eyes on the
+> code. On the todo list is the following:
+>  * More error/exception handling
+>  * Writing and running unit tests for prepared statements
+>
+> Basically the only news here since the first version are the prepared
+> statements.
+>
+> Attached is JDBC.java and a README for quick reference.
+>
+> -Andreas
+>
+>
+
+
+From andreas.ravnestad at gmail.com  Sun Jul  8 11:49:49 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Sun, 08 Jul 2007 11:49:49 +0200
+Subject: [Sleep-developers] REPL for Sleep
+Message-ID: <4690B33D.3030101@gmail.com>
+
+Is it possible to set up a REPL for Sleep?
+
+-Andreas
+
+
+From raffi at hick.org  Sun Jul  8 17:35:22 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 8 Jul 2007 10:35:22 -0500 (CDT)
+Subject: [Sleep-developers] REPL for Sleep
+In-Reply-To: <4690B33D.3030101@gmail.com>
+References: <4690B33D.3030101@gmail.com>
+Message-ID: <Pine.LNX.4.58.0707081032190.29740@jethro.hick.org>
+
+Two options for this.  Both are within the Sleep console.   Sleep has a
+simple expression evaluator and an interact mode that both work like an
+REPL.  I made the mistake of separating statements from expressions when
+conceptualizing the language.  I didn't know any better so we're kind of
+stuck with it.
+
+ [raffi at beardsley ~/sleepdev/sleep]$ java -jar sleep.jar
+>> Welcome to the Sleep scripting language
+> x 3 + 4
+7
+> interact
+>> Welcome to interactive mode.
+Type your code and then '.' on a line by itself to execute the code.
+Type Ctrl+D or 'done' on a line by itself to leave interactive mode.
+println("Hello World");
+.
+Hello World
+$x = 45 * 10;
+.
+$closure = let({ println("Value is: $x"); }, \$x);
+.
+[$closure];
+.
+Value is: 450
+
+-- Raphael
+
+On Sun, 8 Jul 2007, Andreas Ravnestad wrote:
+
+> Is it possible to set up a REPL for Sleep?
+>
+> -Andreas
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+
+
+From andreas.ravnestad at gmail.com  Mon Jul  9 19:20:50 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Mon, 09 Jul 2007 19:20:50 +0200
+Subject: [Sleep-developers] REPL for Sleep
+In-Reply-To: <Pine.LNX.4.58.0707081032190.29740@jethro.hick.org>
+References: <4690B33D.3030101@gmail.com>
+	<Pine.LNX.4.58.0707081032190.29740@jethro.hick.org>
+Message-ID: <46926E72.3040701@gmail.com>
+
+Hm out of curiousity, expressions and statements are separate how? There 
+is no relation between them? Hmm, maybe something to put on the todo for 
+Sleep 3.0? :)
+
+As for the REPL, I think interactive mode will do fine for my needs. 
+Thanks for the tip!
+
+-Andreas
+
+
+Raphael Mudge wrote:
+> Two options for this.  Both are within the Sleep console.   Sleep has a
+> simple expression evaluator and an interact mode that both work like an
+> REPL.  I made the mistake of separating statements from expressions when
+> conceptualizing the language.  I didn't know any better so we're kind of
+> stuck with it.
+>
+>  [raffi at beardsley ~/sleepdev/sleep]$ java -jar sleep.jar
+>   
+>>> Welcome to the Sleep scripting language
+>>>       
+>> x 3 + 4
+>>     
+> 7
+>   
+>> interact
+>>     
+>>> Welcome to interactive mode.
+>>>       
+> Type your code and then '.' on a line by itself to execute the code.
+> Type Ctrl+D or 'done' on a line by itself to leave interactive mode.
+> println("Hello World");
+> .
+> Hello World
+> $x = 45 * 10;
+> .
+> $closure = let({ println("Value is: $x"); }, \$x);
+> .
+> [$closure];
+> .
+> Value is: 450
+>
+> -- Raphael
+>
+> On Sun, 8 Jul 2007, Andreas Ravnestad wrote:
+>
+>   
+>> Is it possible to set up a REPL for Sleep?
+>>
+>> -Andreas
+>> _______________________________________________
+>> Sleep-developers mailing list
+>> Sleep-developers at lists.berlios.de
+>> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>>
+>>     
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+>   
+
+
+
+From raffi at jethro.hick.org  Tue Jul 10 13:12:57 2007
+From: raffi at jethro.hick.org (raffi at jethro.hick.org)
+Date: Tue, 10 Jul 2007 06:12:57 -0500 (CDT)
+Subject: [Sleep-developers] sleep.hick.org down
+Message-ID: <Pine.LNX.4.58.0707100607540.15593@jethro.hick.org>
+
+Hi all,
+hick.org experienced a bit of a hard drive crash.  I don't know if they'll
+be able to recover all of the files or not.  In the meantime
+sleep.hick.org and jircii.hick.org are down.
+
+I'm going to be on travel for the next few days.  I will try to get the
+sites back online as soon as possible.
+
+-- Raphael
+
+
+
+
+
+From Martin.Sheppard.ctr at rl.af.mil  Thu Jul 26 19:42:31 2007
+From: Martin.Sheppard.ctr at rl.af.mil (Sheppard, Martin Ctr AFRL/IFGA)
+Date: Thu, 26 Jul 2007 13:42:31 -0400
+Subject: [Sleep-developers]  Developer preview: JDBC bridge 1.0
+Message-ID: <D7F4BE4EFB059F4BA9713413E2C5271801BFBC56@VFOHMLAO11.Enterprise.afmc.ds.af.mil>
+
+Hi Andreas,
+
+ 
+
+I am the friend of Raph's that has been using your JDBC Bridge.  It has
+worked wonderfully for me.  The only issue that I have had is being able
+to write blobs to a database.  I attempted to use HOES and the Java API
+but messed that up somehow.  I was not able to properly retrieve the
+data that I had hopefully inserted (at least I was not able to pull data
+from the inserted records).  I have a HUGE data structure that my
+program maintains (data does not fit in 3.5 Gig) and need to clean out,
+but I need to save the records I delete and would like to save it in a
+database as a blob.  Have you done anything like that?  If so a small
+sample would be appreciated to see what I messed up).  Have a GREAT day!
+
+ 
+
+Marty.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20070726/57b360ba/attachment.html>
+
+From andreas.ravnestad at gmail.com  Sun Jul 29 23:43:03 2007
+From: andreas.ravnestad at gmail.com (Andreas Ravnestad)
+Date: Sun, 29 Jul 2007 23:43:03 +0200
+Subject: [Sleep-developers] Slumber 1.0 alpha release (Was: Developer
+	preview: JDBC bridge 1.0)
+Message-ID: <46AD09E7.1040906@gmail.com>
+
+I'm glad to announce an alpha release of Slumber, a set of useful 
+extensions for Sleep. So far it consists of a JDBC bridge, as well as a 
+bridge for text various text operations. The biggest news here is the 
+support for prepared statements, which are strongly encouraged for 
+queries involving user input to avoid direct or indirect SQL injections.
+
+The JDBC bridge is fully backwards compatible -- however, existing users 
+will need to change their use() line slightly to be able to load the 
+bridges. Refer to the README and examples for more information.
+
+Slumber 1.0-alpha is available for download here: 
+http://printf.no/slumber/Slumber-1.0-alpha.zip
+
+Slumber 1.0 alpha requires Java SE 1.5, and has been tested with the 
+current Sleep 2.1 b18 release. A beta release of Slumber will be made 
+within the next few weeks.
+
+-Andreas R
+
+

@@ -1,0 +1,115 @@
+From emercado at gmail.com  Fri Aug 12 21:23:07 2005
+From: emercado at gmail.com (Edwin Mercado)
+Date: Fri, 12 Aug 2005 15:23:07 -0400
+Subject: [Sleep-developers] java.lang.ClassCastException: java.lang.String
+Message-ID: <ea52ceaf05081212232940523f@mail.gmail.com>
+
+Hi,
+I just started using Sleep within my Java application, and I get the following
+error whenever I call a subroutine within my Sleep script with a on
+Stack filled with parameters, instead of using new Stack(). That is,
+
+  // call a function in the script (DOESN'T WORK)
+   Scalar value = script.callFunction("&parse", AppearanceOrder);
+instead of
+
+  // call a function in the script (WORKS FINE!)
+   Scalar value = script.callFunction("&parse", new Stack());
+
+Here is the error message that I get:
+
+java.lang.ClassCastException: java.lang.String
+	at sleep.bridges.SleepClosure.evaluate(Unknown Source)
+	at sleep.runtime.ScriptInstance.callFunction(Unknown Source)
+	at com.cra.inafs.parser.ScriptParser.start(ScriptParser.java:68)
+	at com.cra.inafs.parser.IPTablesParser.parse(IPTablesParser.java:43)
+	at com.cra.inafs.agent.behavior.LogParsingBehavior.action(LogParsingBehavior.java:40)
+	at jade.core.behaviours.Behaviour.actionWrapper(Unknown Source)
+	at jade.core.Agent$ActiveLifeCycle.execute(Unknown Source)
+	at jade.core.Agent.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+Could someone shed a little light on this problem? I'd appreciate it.
+
+Edwin
+
+
+From raffi at hick.org  Fri Aug 12 23:56:07 2005
+From: raffi at hick.org (Raphael Mudge)
+Date: Fri, 12 Aug 2005 16:56:07 -0500 (CDT)
+Subject: [Sleep-developers] java.lang.ClassCastException: java.lang.String
+In-Reply-To: <ea52ceaf05081212232940523f@mail.gmail.com>
+References: <ea52ceaf05081212232940523f@mail.gmail.com>
+Message-ID: <Pine.LNX.4.58.0508121654020.3281@jethro.hick.org>
+
+Hi Edwin,
+Sleep expects the argument stack to contain a series of
+sleep.runtime.Scalar types.  It appears you are passing it a Stack of
+java.lang.Strings.
+
+To convert from a String to a Scalar use
+
+SleepUtils.getScalar("your variable); // returns a sleep.runtime.Scalar
+
+The getScalar method of SleepUtils is overloaded for many Java types.
+
+Hope this helps...
+
+		-- Raphael
+
+On Fri, 12 Aug 2005, Edwin Mercado wrote:
+
+> Hi,
+> I just started using Sleep within my Java application, and I get the following
+> error whenever I call a subroutine within my Sleep script with a on
+> Stack filled with parameters, instead of using new Stack(). That is,
+>
+>   // call a function in the script (DOESN'T WORK)
+>    Scalar value = script.callFunction("&parse", AppearanceOrder);
+> instead of
+>
+>   // call a function in the script (WORKS FINE!)
+>    Scalar value = script.callFunction("&parse", new Stack());
+>
+> Here is the error message that I get:
+>
+> java.lang.ClassCastException: java.lang.String
+> 	at sleep.bridges.SleepClosure.evaluate(Unknown Source)
+> 	at sleep.runtime.ScriptInstance.callFunction(Unknown Source)
+> 	at com.cra.inafs.parser.ScriptParser.start(ScriptParser.java:68)
+> 	at com.cra.inafs.parser.IPTablesParser.parse(IPTablesParser.java:43)
+> 	at com.cra.inafs.agent.behavior.LogParsingBehavior.action(LogParsingBehavior.java:40)
+> 	at jade.core.behaviours.Behaviour.actionWrapper(Unknown Source)
+> 	at jade.core.Agent$ActiveLifeCycle.execute(Unknown Source)
+> 	at jade.core.Agent.run(Unknown Source)
+> 	at java.lang.Thread.run(Unknown Source)
+>
+> Could someone shed a little light on this problem? I'd appreciate it.
+>
+> Edwin
+> _______________________________________________
+> Sleep-developers mailing list
+> Sleep-developers at lists.berlios.de
+> http://lists.berlios.de/mailman/listinfo/sleep-developers
+>
+
+
+From dani at sferyx.com  Fri Aug 19 21:00:26 2005
+From: dani at sferyx.com (Dani Irinchev)
+Date: Fri, 19 Aug 2005 21:00:26 +0200
+Subject: [Sleep-developers] sand box
+Message-ID: <200508191900.j7JJ0RdG003966@smtp.hispeed.ch>
+
+Hi all,
+
+Maybe this is written in the docs but I could not find it: is there a way to
+control what java classes are available for the script to instantiate? I
+would like to embed sleep in an application but to have a finite set of API
+available to the scripting environment.
+
+Cheers, Dani
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20050819/27d0ddc5/attachment.html>
+

@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 12 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2012%20released%21&In-Reply-To=%3CPine.LNX.4.58.0703111934300.26250%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000038.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 12 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%2012%20released%21&In-Reply-To=%3CPine.LNX.4.58.0703111934300.26250%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 12 released!">raffi at hick.org
+       </A><BR>
+    <I>Mon Mar 12 01:44:57 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000038.html">[Sleep-developers] Sleep 2.1 beta 13 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everyone,
+After a much needed hiatus, Sleep 2.1-b12 has been released.  This is a
+good release with lots of stuff in it, I think you'll like it.  :)
+
+1) Added the ability to include external files into the current script
+
+This feature should make it easier to modularize scripts.  This was a pain
+to implement as I had to make the compiled form of each script aware of
+which file it came from.
+
+2) String manipulation functions now normalize negative values
+
+That is a fancy way of saying you can now do left(&quot;some string&quot;, -2) to
+get all but the 2 left most characters in the specified string.  A little
+bit of work was done to allow string manipulation functions to accept
+negative chars.  In 2.1-b13 I'll work on applying this to array functions
+as well.
+
+3) Added byte buffers!
+
+Scripters can now allocate a memory buffer with the allocate function and
+manipulate it using Sleep's I/O functions.  This should help those of you
+who need to generate and manipulate large amounts of data quickly.
+
+4) Rewrote the interpreter and parser handling of parsed literals
+
+I spent the majority of my day/night rewriting how Sleep parses and later
+interprets parsed literals.  The code to do this before was incredibly
+ugly.  So ugly that when I kept encountering odd bugs I decided to just
+rewrite it and do it the right way.  So far I haven't noticed any
+surprises but your mileage may vary.  Please keep me informed if anything
+seemed to break in this area.
+
+There is a bunch of other stuff in this release as well.  However the
+above summarizes the highlights pretty well.
+
+As usual, the change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+Beta 13 will be coming within a week or two.  My aim in b13 is to allow
+scripts to throw and catch exceptions, normalize negative values in array
+manipulation functions, and fix some more bugs.  Hopefully after b13 we
+will be feature complete for Sleep 2.1.  Once we reach that point I will
+direct my efforts towards finishing the new Sleep manual.
+
+As always, enjoy the beta!
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000038.html">[Sleep-developers] Sleep 2.1 beta 13 released!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

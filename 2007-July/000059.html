@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Developer preview: JDBC bridge 1.0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Developer%20preview%3A%20JDBC%20bridge%201.0&In-Reply-To=%3CPine.LNX.4.58.0707061203400.8607%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000058.html">
+   <LINK REL="Next"  HREF="000060.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Developer preview: JDBC bridge 1.0</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Developer%20preview%3A%20JDBC%20bridge%201.0&In-Reply-To=%3CPine.LNX.4.58.0707061203400.8607%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Developer preview: JDBC bridge 1.0">raffi at hick.org
+       </A><BR>
+    <I>Fri Jul  6 19:07:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000058.html">[Sleep-developers] Developer preview: JDBC bridge 1.0
+</A></li>
+        <LI>Next message: <A HREF="000060.html">[Sleep-developers] REPL for Sleep
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>You're adding prepared statements!!! I have a friend of mine who will love
+you forever.
+
+As a quick aside, I updated your .zip file on the sleep site to include an
+ant build file and slight updates to your example instructions.
+
+Namely use() has been updated a little bit.  The old form of taking a
+string still works.  However one can now do:
+
+import no.printf.whatever.JDBCBridge from: JDBC.jar;
+
+use(^JDBCBridge);
+
+With this form scripters benefit from compile time checking of the
+reachability/existence of the class. (^Something is the Sleep equivalent
+of Something.class in Java).
+
+Good to see you're alive.
+
+-- Raphael
+
+On Fri, 6 Jul 2007, Andreas Ravnestad wrote:
+
+&gt;<i> Hi!
+</I>&gt;<i>
+</I>&gt;<i> I'm posting this here ahead of release to get some fresh eyes on the
+</I>&gt;<i> code. On the todo list is the following:
+</I>&gt;<i>  * More error/exception handling
+</I>&gt;<i>  * Writing and running unit tests for prepared statements
+</I>&gt;<i>
+</I>&gt;<i> Basically the only news here since the first version are the prepared
+</I>&gt;<i> statements.
+</I>&gt;<i>
+</I>&gt;<i> Attached is JDBC.java and a README for quick reference.
+</I>&gt;<i>
+</I>&gt;<i> -Andreas
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000058.html">[Sleep-developers] Developer preview: JDBC bridge 1.0
+</A></li>
+	<LI>Next message: <A HREF="000060.html">[Sleep-developers] REPL for Sleep
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#59">[ date ]</a>
+              <a href="thread.html#59">[ thread ]</a>
+              <a href="subject.html#59">[ subject ]</a>
+              <a href="author.html#59">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] inner classes in Sleep
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20inner%20classes%20in%20Sleep&In-Reply-To=%3C200605301033.k4UAX95L005146%40smtp.hispeed.ch%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] inner classes in Sleep</H1>
+    <B>Dani Irinchev</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20inner%20classes%20in%20Sleep&In-Reply-To=%3C200605301033.k4UAX95L005146%40smtp.hispeed.ch%3E"
+       TITLE="[Sleep-developers] inner classes in Sleep">dani at sferyx.com
+       </A><BR>
+    <I>Tue May 30 12:33:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Sleep-developers] SLEEP question
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi everyone,
+Trying to use sleep for some scripted logic and have some troubles
+referencing static resources on inner classes.
+Example (uses java mail):
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
+import javax.mail.Message.RecipientType;
+
+$props = [new Properties];
+$session = [ Session getDefaultInstance : $props, null ];
+$m = [ new MimeMessage: $session];
+[ $m addRecipient : [RecipientType TO];,[new InternetAddress:
+&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">test at test.com</A>&quot;];];
+[ $m setText : &quot;test&quot; ];
+
+The problem is that the expression:
+
+[RecipientType TO]
+
+Generates a runtime error that says:
+
+&quot;Attempted to call a method on a null reference.&quot;
+
+Any help will be welcome.
+Cheers, Dani
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Sleep-developers] SLEEP question
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

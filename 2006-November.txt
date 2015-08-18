@@ -1,0 +1,155 @@
+From raffi at hick.org  Mon Nov  6 04:41:40 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Sun, 5 Nov 2006 21:41:40 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1 beta 9 released!
+Message-ID: <Pine.LNX.4.58.0611052131420.10542@jethro.hick.org>
+
+Hello All,
+Sleep 2.1-b9 has been released.  This release has a lot of changes logged
+against it.  So if you can jump on it and let me know if I broke anything
+it would be greatly appreciated.
+
+Significant Changes:
+
+- Scalars are now serializable.  I also added readObject and writeObject
+  to read/write a scalar from a IO handle.  This allows all kinds of fun
+  things including a cheap mechanism for writing mobile agents:
+  http://www.jroller.com/page/sleepsnip?entry=mobile_agents_in_sleep
+
+- Fixed a hidden performance eating bug with the index operator.
+  Each application of the index operator checks if the data structure in
+  the current stack frame is null or not.  The way this check was being
+  carried out inadvertently caused a string representation of the data
+  structure to be generated.  With a large data set being hit many times
+  you can see where this could be a problem.
+
+- The index operator now "normalizes" negative index values for arrays.
+  This is kind of useful, if you want the last element of @foo use
+  @foo[-1].
+
+There are of course numerous other fixes and a few other additions as
+well.  These are just the main highlights of the release.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+As always, enjoy the beta.
+
+-- Raphael
+
+
+From mmanning at sequenom.com  Wed Nov 15 17:56:58 2006
+From: mmanning at sequenom.com (Maurice Manning)
+Date: Wed, 15 Nov 2006 08:56:58 -0800
+Subject: [Sleep-developers] can Sleep thread be paused/resumed?
+Message-ID: <7126FD4CDEA5264386295C3BA1BE111102BD8558@cell.sequenom.com>
+
+
+My app will receive a script (in Sleep possibly) from a client which
+will contain instructions to control hardware. The script will need to
+call methods on Java classes that are the API for the hardware (seems
+like Sleep can do this) but my Manager class (in java) will need to be
+able to halt, pause and resume the thread that is executing the Sleep
+script. Is this possible? Can I get an example of the above? Jython
+failed this test so I am looking for other options.
+
+Thanks for any info, Mo
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/sleep-developers/attachments/20061115/352c4e2b/attachment.html>
+
+From raffi at hick.org  Thu Nov 16 07:26:29 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Thu, 16 Nov 2006 00:26:29 -0600 (CST)
+Subject: [Sleep-developers] can Sleep thread be paused/resumed?
+In-Reply-To: <7126FD4CDEA5264386295C3BA1BE111102BD8558@cell.sequenom.com>
+References: <7126FD4CDEA5264386295C3BA1BE111102BD8558@cell.sequenom.com>
+Message-ID: <Pine.LNX.4.58.0611160022250.22133@jethro.hick.org>
+
+Hi Maurice,
+Sleep does not provide an API to do this per se, however if you run a
+script in its own java.lang.Thread you can use the stop, resume, and pause
+methods there (I assume).  I should warn you though that these methods are
+deprecated as they are prone to cause deadlock.
+
+Scripts can also voluntarily relinquish control using the yield statement
+(works like return).  When yield is called within a function, the state of
+the function is saved, and the yielded value is returned.  The next time
+the function is called execution resumes from where yield was last called.
+
+Can you provide any more information about what your application is doing
+and what the need is for the halt, pause, and resume of threads?  Maybe
+there is another way to go about this.
+
+-- Raphael
+
+On Wed, 15 Nov 2006, Maurice Manning wrote:
+
+>
+> My app will receive a script (in Sleep possibly) from a client which
+> will contain instructions to control hardware. The script will need to
+> call methods on Java classes that are the API for the hardware (seems
+> like Sleep can do this) but my Manager class (in java) will need to be
+> able to halt, pause and resume the thread that is executing the Sleep
+> script. Is this possible? Can I get an example of the above? Jython
+> failed this test so I am looking for other options.
+>
+> Thanks for any info, Mo
+>
+
+
+From raffi at hick.org  Tue Nov 21 03:47:37 2006
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 20 Nov 2006 20:47:37 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1 beta 10 released!
+Message-ID: <Pine.LNX.4.58.0611202039360.29646@jethro.hick.org>
+
+Hola,
+Sleep 2.1-b10 has been released.  This release contains a few feature
+enhancements and several bug fixes.
+
+Some of the items worth noting:
+
+- I/O functions that read and print characters are unicode aware once
+  again.  I originally made them non-unicode aware to ensure that mark,
+  skip, and reset on a handle all worked no matter what op you were using.
+  A little bit of hacking and now I have both.  The function &setEncoding
+  was added to allow specifying which charset to interpret print/read ops
+  to the stream with.
+
+- Added \x and \u literals for specifying 8 and 16 bit characters within
+  a parsed literal string.
+
+- Added assignment operators: +=, -=, *=, /=, etc..
+  These also work with tuple assignment allowing some cool side effects,
+  i.e. to add the elements of two arrays together:
+  (@a) += @b;
+
+- Fixed &consume so the code to hash/checksum a file is now fast and
+  simple :)
+
+There is other stuff as well.  A parser bug was fixed that prevented out
+of context bareword tokens from being flagged as an error.  One problem
+this caused was scripters typing null in lieu of $null never received an
+error.
+
+Change log is available here:
+http://sleep.hick.org/changelog.html
+
+Sleep can be downloaded at:
+http://sleep.hick.org/download.html
+
+I'm planning one more beta with a few new features.  The next beta may be
+a release candidate for Sleep 2.1.  At the moment I am looking at my busy
+life and the daunting task of finishing the new Sleep manual in a
+reasonable amount of time.  I may release without the new documentation.
+Not sure yet.
+
+Please enjoy the beta!
+
+-- Raphael
+
+

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Newbie question: termination of a script
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Newbie%20question%3A%20termination%20of%20a%20script&In-Reply-To=%3Cb6077b530701251400x29aa083cl6e1facdb6d925ab9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Newbie question: termination of a script</H1>
+    <B>Tim Clark</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Newbie%20question%3A%20termination%20of%20a%20script&In-Reply-To=%3Cb6077b530701251400x29aa083cl6e1facdb6d925ab9%40mail.gmail.com%3E"
+       TITLE="[Sleep-developers] Newbie question: termination of a script">timgclark at gmail.com
+       </A><BR>
+    <I>Thu Jan 25 23:00:56 CET 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello
+Probably a stupid question but here goes.
+
+The documentation does not seem to describe an exit() builtin - that is, a
+statement that causes script.runScript() to return. I deduce (from
+experiment) that a return statement at the outer level has this effect (and
+presumably that is equivalent to falling off the end of the script).
+
+The question is: is there some way for the code within a subroutine (or
+closure) to invoke such an exit?
+
+The motivation for asking this is that I am trying to construct a script of
+this form:
+
+get a key;
+if key == exitKey then return 0;
+
+do something(1) based on key;
+
+get a key;
+if key == exitKey then return 0;
+
+do something(2) based on key;
+
+etc...
+
+and I'd like to wrap it like this (a sequence of steps):
+
+$key = getAKey();
+doSomething(1,$key);
+$key = getAKey();
+doSomething(2,$key);
+etc...
+
+where
+sub getAKey {
+  $key = readKey();
+  if($key == $exitKey)
+  {
+     exit();
+  }
+  return $key;
+}
+
+
+Regards
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/sleep-developers/attachments/20070125/e11b756e/attachment.html">https://lists.berlios.de/pipermail/sleep-developers/attachments/20070125/e11b756e/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

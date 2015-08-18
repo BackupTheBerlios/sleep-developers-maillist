@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] custom function question
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20custom%20function%20question&In-Reply-To=%3CPine.LNX.4.58.0607030741440.26977%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000021.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] custom function question</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20custom%20function%20question&In-Reply-To=%3CPine.LNX.4.58.0607030741440.26977%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] custom function question">raffi at hick.org
+       </A><BR>
+    <I>Mon Jul  3 14:58:48 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[Sleep-developers] custom function question
+</A></li>
+        <LI>Next message: <A HREF="000021.html">[Sleep-developers] environment variable problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Dani,
+There are three options for communicating a error to a scripter.  Well
+really two right now, but three if you feel like checking out the code
+currently in the SVN repository.
+
+Option 1:
+Throw a RuntimeException or IllegalArgumentException.  These will bubble
+up to the script interpreter and get turned into a nicely formatted
+runtime exception.  Problem is they effectively cause a return on the
+calling script so this mechanism is only useful for serious errors.
+
+<A HREF="http://sleep.hick.org/sleepguide.html#2.95">http://sleep.hick.org/sleepguide.html#2.95</A>
+
+Option 2:
+Sleep has a built in function called checkError($error) that works a lot
+like Perl's $!.  Basically when a non-fatal type error occurs $! is set to
+a value describing the error.  In Sleep this $! value (not really $!)
+anymore is available by calling checkError($error).  If checkError returns
+1 then $error is set to the text of the error and the error is cleared.
+Otherwise checkError returns 0.
+
+<A HREF="http://sleep.hick.org/docs/api/sleep/runtime/ScriptEnvironment.html#flagError(java.lang.String">http://sleep.hick.org/docs/api/sleep/runtime/ScriptEnvironment.html#flagError(java.lang.String</A>)
+
+This may be the option you're looking for.  As for the line numbers,
+inside of the SVN repository (and part of Sleep 2.1 b2) there is a new
+option to set a &quot;debug&quot; level for scripts.  If the debug level is set
+properly any time an error is flagged in this way a runtime warning
+exception will be reported with the appropriate script file and line
+number.
+
+One thing you will need to do to set this debug level in 2.1 b2:
+
+ScriptInstance script; /* whare ever this comes from */
+
+script.setDebugFlags(script.getDebugFlags() | ScriptInstance.DEBUG_SHOW_WARNINGS);
+
+Option 3:
+Finally as the last option there is something similar to flagError in
+ScriptEnvironment sitting in the SVN that immediately fires a runtime
+warning exception with the current line number/file attached to the
+message you specify.   The function is showDebugMessage I believe.
+
+That should about cover it.
+
+-- Raphael
+
+
+On Mon, 3 Jul 2006, Dani Irinchev wrote:
+
+&gt;<i> Hi everyone,
+</I>&gt;<i>
+</I>&gt;<i> I am implementing some custom functions to export into a scripting
+</I>&gt;<i> environment. I would like to catch any problems that might occur in those
+</I>&gt;<i> functions of mine. Then I would like to report the problem so my
+</I>&gt;<i> RuntimeWarningWatcher gets a ScriptWarning.  Is there any way of knowing the
+</I>&gt;<i> script source line number where my function was executed?
+</I>&gt;<i>
+</I>&gt;<i> Cheers, Dani
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[Sleep-developers] custom function question
+</A></li>
+	<LI>Next message: <A HREF="000021.html">[Sleep-developers] environment variable problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

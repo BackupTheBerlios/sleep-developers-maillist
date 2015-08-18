@@ -1,0 +1,40 @@
+From noreply at googlegroups.com  Tue Dec  4 04:41:06 2007
+From: noreply at googlegroups.com (noreply at googlegroups.com)
+Date: Tue, 04 Dec 2007 03:41:06 +0000
+Subject: [Sleep-developers] Google Groups: You've been invited to Sleep
+	Developers
+Message-ID: <20071204034224.04C8211F983@mail.berlios.de>
+
+ Raphael Mudge rsmudge at gmail.com has invited you to join the Sleep Developers 
+group with this message:
+
+Hi guys,
+I've created a google group for us. This is where I'll be dumping official 
+Sleep correspondence from here on out. -- Raphael
+
+Here is the group's description:
+
+Sleep is a Perl-inspired scripting language for the Java platform. This group 
+is the discussion of Sleep for end-user scripters and those who integrate it 
+with their applications. Let the party begin: http://sleep.hick.org/
+
+---------------------- Google Groups Information ----------------------
+
+You can accept this invitation by clicking the following URL:
+
+http://groups.google.com/group/sleep-developers/sub?s=4huI-ggAAADV9PHQ4IpjnG6BKzzKd1ZD&hl=en
+
+Access to the group on the web requires a Google Account. If you don't have a 
+Google Account set up yet, you'll first need to create an account before you 
+can access the group. You can create an account at:
+
+http://www.google.com/accounts/NewAccount?service=groups2&dEM=sleep-developers%40lists.berlios.de&continue=http%3A%2F%2Fgroups.google.com%2Fgroup%2Fsleep-developers%3Fhl%3Den
+
+--------------------- If This Message Is Unwanted ---------------------
+
+If you feel that this message is abuse, please inform the Google Groups staff 
+by using the URL below.
+
+http://groups.google.com/groups/abuse?invite=MQAAAIgWTACXBCIG5v7nBA&hl=en
+
+

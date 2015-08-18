@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] java.lang.ClassCastException: java.lang.String
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2005-August/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20java.lang.ClassCastException%3A%20java.lang.String&In-Reply-To=%3CPine.LNX.4.58.0508121654020.3281%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000002.html">
+   <LINK REL="Next"  HREF="000004.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] java.lang.ClassCastException: java.lang.String</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20java.lang.ClassCastException%3A%20java.lang.String&In-Reply-To=%3CPine.LNX.4.58.0508121654020.3281%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] java.lang.ClassCastException: java.lang.String">raffi at hick.org
+       </A><BR>
+    <I>Fri Aug 12 23:56:07 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000002.html">[Sleep-developers] java.lang.ClassCastException: java.lang.String
+</A></li>
+        <LI>Next message: <A HREF="000004.html">[Sleep-developers] sand box
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Edwin,
+Sleep expects the argument stack to contain a series of
+sleep.runtime.Scalar types.  It appears you are passing it a Stack of
+java.lang.Strings.
+
+To convert from a String to a Scalar use
+
+SleepUtils.getScalar(&quot;your variable); // returns a sleep.runtime.Scalar
+
+The getScalar method of SleepUtils is overloaded for many Java types.
+
+Hope this helps...
+
+		-- Raphael
+
+On Fri, 12 Aug 2005, Edwin Mercado wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i> I just started using Sleep within my Java application, and I get the following
+</I>&gt;<i> error whenever I call a subroutine within my Sleep script with a on
+</I>&gt;<i> Stack filled with parameters, instead of using new Stack(). That is,
+</I>&gt;<i>
+</I>&gt;<i>   // call a function in the script (DOESN'T WORK)
+</I>&gt;<i>    Scalar value = script.callFunction(&quot;&amp;parse&quot;, AppearanceOrder);
+</I>&gt;<i> instead of
+</I>&gt;<i>
+</I>&gt;<i>   // call a function in the script (WORKS FINE!)
+</I>&gt;<i>    Scalar value = script.callFunction(&quot;&amp;parse&quot;, new Stack());
+</I>&gt;<i>
+</I>&gt;<i> Here is the error message that I get:
+</I>&gt;<i>
+</I>&gt;<i> java.lang.ClassCastException: java.lang.String
+</I>&gt;<i> 	at sleep.bridges.SleepClosure.evaluate(Unknown Source)
+</I>&gt;<i> 	at sleep.runtime.ScriptInstance.callFunction(Unknown Source)
+</I>&gt;<i> 	at com.cra.inafs.parser.ScriptParser.start(ScriptParser.java:68)
+</I>&gt;<i> 	at com.cra.inafs.parser.IPTablesParser.parse(IPTablesParser.java:43)
+</I>&gt;<i> 	at com.cra.inafs.agent.behavior.LogParsingBehavior.action(LogParsingBehavior.java:40)
+</I>&gt;<i> 	at jade.core.behaviours.Behaviour.actionWrapper(Unknown Source)
+</I>&gt;<i> 	at jade.core.Agent$ActiveLifeCycle.execute(Unknown Source)
+</I>&gt;<i> 	at jade.core.Agent.run(Unknown Source)
+</I>&gt;<i> 	at java.lang.Thread.run(Unknown Source)
+</I>&gt;<i>
+</I>&gt;<i> Could someone shed a little light on this problem? I'd appreciate it.
+</I>&gt;<i>
+</I>&gt;<i> Edwin
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Sleep-developers mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/sleep-developers">Sleep-developers at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/sleep-developers">http://lists.berlios.de/mailman/listinfo/sleep-developers</A>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000002.html">[Sleep-developers] java.lang.ClassCastException: java.lang.String
+</A></li>
+	<LI>Next message: <A HREF="000004.html">[Sleep-developers] sand box
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

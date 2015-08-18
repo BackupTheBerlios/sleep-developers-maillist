@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] Sleep 2.1 beta 9 released!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%209%20released%21&In-Reply-To=%3CPine.LNX.4.58.0611052131420.10542%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] Sleep 2.1 beta 9 released!</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20Sleep%202.1%20beta%209%20released%21&In-Reply-To=%3CPine.LNX.4.58.0611052131420.10542%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] Sleep 2.1 beta 9 released!">raffi at hick.org
+       </A><BR>
+    <I>Mon Nov  6 04:41:40 CET 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000032.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello All,
+Sleep 2.1-b9 has been released.  This release has a lot of changes logged
+against it.  So if you can jump on it and let me know if I broke anything
+it would be greatly appreciated.
+
+Significant Changes:
+
+- Scalars are now serializable.  I also added readObject and writeObject
+  to read/write a scalar from a IO handle.  This allows all kinds of fun
+  things including a cheap mechanism for writing mobile agents:
+  <A HREF="http://www.jroller.com/page/sleepsnip?entry=mobile_agents_in_sleep">http://www.jroller.com/page/sleepsnip?entry=mobile_agents_in_sleep</A>
+
+- Fixed a hidden performance eating bug with the index operator.
+  Each application of the index operator checks if the data structure in
+  the current stack frame is null or not.  The way this check was being
+  carried out inadvertently caused a string representation of the data
+  structure to be generated.  With a large data set being hit many times
+  you can see where this could be a problem.
+
+- The index operator now &quot;normalizes&quot; negative index values for arrays.
+  This is kind of useful, if you want the last element of @foo use
+  @foo[-1].
+
+There are of course numerous other fixes and a few other additions as
+well.  These are just the main highlights of the release.
+
+Change log is available here:
+<A HREF="http://sleep.hick.org/changelog.html">http://sleep.hick.org/changelog.html</A>
+
+Sleep can be downloaded at:
+<A HREF="http://sleep.hick.org/download.html">http://sleep.hick.org/download.html</A>
+
+As always, enjoy the beta.
+
+-- Raphael
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000032.html">[Sleep-developers] can Sleep thread be paused/resumed?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>

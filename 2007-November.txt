@@ -1,0 +1,55 @@
+From raffi at hick.org  Tue Nov 13 02:03:08 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Mon, 12 Nov 2007 19:03:08 -0600 (CST)
+Subject: [Sleep-developers] Sleep 2.1-b20 Released
+In-Reply-To: <Pine.LNX.4.64.0710241944130.29615@hillbilly>
+References: <Pine.LNX.4.64.0710241944130.29615@hillbilly>
+Message-ID: <Pine.LNX.4.64.0711121901440.32603@hillbilly>
+
+Hello,
+Sleep 2.1-b20 has been released.  This release contains a few minor bug 
+fixes.
+
+Small changes are good.  That means we are near a stable release.  Time to 
+work on some documentation :)
+
+Enjoy the beta.  http://sleep.hick.org/
+
+-- Raphael
+
+
+From raffi at hick.org  Thu Nov 29 04:55:10 2007
+From: raffi at hick.org (Raphael Mudge)
+Date: Wed, 28 Nov 2007 21:55:10 -0600 (CST)
+Subject: [Sleep-developers] Sleep developer fact finding request
+Message-ID: <Pine.LNX.4.64.0711282137270.26489@hillbilly>
+
+Hi guys,
+I'm on a bit of a fact finding mission at this time.  Sleep 2.1 is nearly 
+ready for release.  Quite a bit of work to do on the documentation but I 
+am addressing that.
+
+In the meantime, I have some questions about you.  If you want to help 
+Sleep out, reply to this email answering one or all of these questions:
+
+1. What do you use Sleep for?
+2. What do you like about it?
+3. If you were hacking on Sleep, what would you do to improve it?
+
+Thats it.  I'll keep any replies I receive confidential.  To protect this 
+confidentiality, you'll want to reply to me directly (double check 
+sleep-developers at lists.berlios.de is not in the To field).
+
+My goal with this fact finding is just to better understand how you're 
+using Sleep.  This will help with future articles, focused documentation, 
+and better content for the website.
+
+--Raphael
+
+(p.s. I'm open to public statements about your experience with Sleep but 
+before anything from you would ever go public I'll explicitly coordinate 
+with you what will be posted.  Feel free to indicate if you're interested 
+in providing such a statement.  I'll contact you about it)
+
+
+

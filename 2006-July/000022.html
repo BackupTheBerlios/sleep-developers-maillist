@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Sleep-developers] environment variable problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/sleep-developers/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20environment%20variable%20problem&In-Reply-To=%3CPine.LNX.4.58.0607030807440.26977%40jethro.hick.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000021.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Sleep-developers] environment variable problem</H1>
+    <B>Raphael Mudge</B> 
+    <A HREF="mailto:sleep-developers%40lists.berlios.de?Subject=Re%3A%20%5BSleep-developers%5D%20environment%20variable%20problem&In-Reply-To=%3CPine.LNX.4.58.0607030807440.26977%40jethro.hick.org%3E"
+       TITLE="[Sleep-developers] environment variable problem">raffi at hick.org
+       </A><BR>
+    <I>Mon Jul  3 15:09:26 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000021.html">[Sleep-developers] environment variable problem
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Java has a deprecated method for obtaining a variable from the
+environment.  Specifically System.getenv(&quot;var name&quot;).
+
+I haven't tested it but I assume the following would work:
+
+$variable = [System getenv: &quot;JBOSS_HOME&quot;];
+
+-- Raphael
+
+On Mon, 3 Jul 2006, SHASHIDHAR MISRA wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>   I am facing a problem.
+</I>&gt;<i>   For example I have a environment varible JBOSS_HOME = /usr/local/jboss.
+</I>&gt;<i>   In perl I can get the value of this variable in my script
+</I>&gt;<i>   $variable = $ENV{JBOSS_HOME}
+</I>&gt;<i>
+</I>&gt;<i>   Is there some way in sleep script  through which we can get the values of environment variables ?
+</I>&gt;<i>   Please advice
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>  __________________________________________________
+</I>&gt;<i> Do You Yahoo!?
+</I>&gt;<i> Tired of spam?  Yahoo! Mail has the best spam protection around
+</I>&gt;<i> <A HREF="http://mail.yahoo.com">http://mail.yahoo.com</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000021.html">[Sleep-developers] environment variable problem
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#22">[ date ]</a>
+              <a href="thread.html#22">[ thread ]</a>
+              <a href="subject.html#22">[ subject ]</a>
+              <a href="author.html#22">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/sleep-developers">More information about the Sleep-developers
+mailing list</a><br>
+</body></html>
